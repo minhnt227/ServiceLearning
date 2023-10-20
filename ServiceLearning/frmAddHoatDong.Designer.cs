@@ -99,6 +99,30 @@
             this.label14 = new System.Windows.Forms.Label();
             this.btnGVShow = new System.Windows.Forms.Button();
             this.btnGVExcel = new System.Windows.Forms.Button();
+            this.gbHD_DoiTac = new System.Windows.Forms.GroupBox();
+            this.btnDT_Del = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.btnDT_Edit = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.btnDT_Find = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.btnDT_Clear = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.btnDT_Add = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.txtDT_Email = new System.Windows.Forms.TextBox();
+            this.txtDT_NoiDung = new System.Windows.Forms.TextBox();
+            this.txtDT_Rep = new System.Windows.Forms.TextBox();
+            this.txtDT_Ten = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.txtDT_SDT = new System.Windows.Forms.TextBox();
+            this.gbDT_List = new System.Windows.Forms.GroupBox();
+            this.dgvDoiTac = new ComponentFactory.Krypton.Toolkit.KryptonDataGridView();
+            this.DT_Ten = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DT_DaiDien = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DT_SDT = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DT_Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DT_NoiDung = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ID_DB = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gbGeneralInfo.SuspendLayout();
             this.gbSinhVien.SuspendLayout();
             this.gbSVList.SuspendLayout();
@@ -108,6 +132,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgv_GV)).BeginInit();
             this.gbHD_GV.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.gbHD_DoiTac.SuspendLayout();
+            this.gbDT_List.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDoiTac)).BeginInit();
             this.SuspendLayout();
             // 
             // lblHeader
@@ -404,7 +431,7 @@
             this.gbSVList.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.142858F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbSVList.Location = new System.Drawing.Point(17, 641);
             this.gbSVList.Name = "gbSVList";
-            this.gbSVList.Size = new System.Drawing.Size(1154, 292);
+            this.gbSVList.Size = new System.Drawing.Size(1154, 323);
             this.gbSVList.TabIndex = 2;
             this.gbSVList.TabStop = false;
             this.gbSVList.Text = "Danh sách SV";
@@ -430,7 +457,7 @@
             this.dgvSinhVien.ReadOnly = true;
             this.dgvSinhVien.RowHeadersWidth = 72;
             this.dgvSinhVien.RowTemplate.Height = 31;
-            this.dgvSinhVien.Size = new System.Drawing.Size(1148, 264);
+            this.dgvSinhVien.Size = new System.Drawing.Size(1148, 295);
             this.dgvSinhVien.TabIndex = 0;
             this.dgvSinhVien.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSinhVien_CellClick);
             // 
@@ -501,19 +528,21 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.AutoScroll = true;
             this.panel1.Controls.Add(this.btnGVExcel);
+            this.panel1.Controls.Add(this.gbHD_DoiTac);
             this.panel1.Controls.Add(this.btnExcelSV);
             this.panel1.Controls.Add(this.btnGVShow);
             this.panel1.Controls.Add(this.btnShowSV);
             this.panel1.Controls.Add(this.label14);
             this.panel1.Controls.Add(this.label11);
             this.panel1.Controls.Add(this.gbGeneralInfo);
+            this.panel1.Controls.Add(this.gbDT_List);
             this.panel1.Controls.Add(this.gbGVList);
             this.panel1.Controls.Add(this.gbSVList);
             this.panel1.Controls.Add(this.gbHD_GV);
             this.panel1.Controls.Add(this.gbSinhVien);
-            this.panel1.Location = new System.Drawing.Point(12, 141);
+            this.panel1.Location = new System.Drawing.Point(12, 142);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1220, 638);
+            this.panel1.Size = new System.Drawing.Size(1220, 677);
             this.panel1.TabIndex = 3;
             // 
             // btnExcelSV
@@ -551,7 +580,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gbGVList.Controls.Add(this.dgv_GV);
             this.gbGVList.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.142858F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbGVList.Location = new System.Drawing.Point(17, 1278);
+            this.gbGVList.Location = new System.Drawing.Point(17, 1321);
             this.gbGVList.Name = "gbGVList";
             this.gbGVList.Size = new System.Drawing.Size(1154, 361);
             this.gbGVList.TabIndex = 2;
@@ -599,7 +628,7 @@
             this.gbHD_GV.Controls.Add(this.lblDonvi);
             this.gbHD_GV.Controls.Add(this.label15);
             this.gbHD_GV.Controls.Add(this.label16);
-            this.gbHD_GV.Location = new System.Drawing.Point(17, 1016);
+            this.gbHD_GV.Location = new System.Drawing.Point(17, 1059);
             this.gbHD_GV.Name = "gbHD_GV";
             this.gbHD_GV.Size = new System.Drawing.Size(1162, 252);
             this.gbHD_GV.TabIndex = 2;
@@ -635,7 +664,7 @@
             this.btnFindGV.Size = new System.Drawing.Size(112, 44);
             this.btnFindGV.TabIndex = 4;
             this.btnFindGV.Values.Text = "Tìm";
-            this.btnFindGV.Click += new System.EventHandler(this.btnSVFind_Click);
+            this.btnFindGV.Click += new System.EventHandler(this.btnFindGV_Click);
             // 
             // btnClearGV
             // 
@@ -828,7 +857,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(24, 970);
+            this.label14.Location = new System.Drawing.Point(24, 1013);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(105, 25);
             this.label14.TabIndex = 3;
@@ -836,7 +865,7 @@
             // 
             // btnGVShow
             // 
-            this.btnGVShow.Location = new System.Drawing.Point(184, 962);
+            this.btnGVShow.Location = new System.Drawing.Point(184, 1005);
             this.btnGVShow.Name = "btnGVShow";
             this.btnGVShow.Size = new System.Drawing.Size(142, 43);
             this.btnGVShow.TabIndex = 4;
@@ -846,13 +875,260 @@
             // 
             // btnGVExcel
             // 
-            this.btnGVExcel.Location = new System.Drawing.Point(332, 961);
+            this.btnGVExcel.Location = new System.Drawing.Point(332, 1004);
             this.btnGVExcel.Name = "btnGVExcel";
             this.btnGVExcel.Size = new System.Drawing.Size(142, 43);
             this.btnGVExcel.TabIndex = 4;
             this.btnGVExcel.Text = "Import Excel";
             this.btnGVExcel.UseVisualStyleBackColor = true;
             this.btnGVExcel.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // gbHD_DoiTac
+            // 
+            this.gbHD_DoiTac.Controls.Add(this.btnDT_Del);
+            this.gbHD_DoiTac.Controls.Add(this.btnDT_Edit);
+            this.gbHD_DoiTac.Controls.Add(this.btnDT_Find);
+            this.gbHD_DoiTac.Controls.Add(this.btnDT_Clear);
+            this.gbHD_DoiTac.Controls.Add(this.btnDT_Add);
+            this.gbHD_DoiTac.Controls.Add(this.txtDT_SDT);
+            this.gbHD_DoiTac.Controls.Add(this.txtDT_Email);
+            this.gbHD_DoiTac.Controls.Add(this.txtDT_NoiDung);
+            this.gbHD_DoiTac.Controls.Add(this.txtDT_Rep);
+            this.gbHD_DoiTac.Controls.Add(this.txtDT_Ten);
+            this.gbHD_DoiTac.Controls.Add(this.label17);
+            this.gbHD_DoiTac.Controls.Add(this.label18);
+            this.gbHD_DoiTac.Controls.Add(this.label19);
+            this.gbHD_DoiTac.Controls.Add(this.label20);
+            this.gbHD_DoiTac.Controls.Add(this.label21);
+            this.gbHD_DoiTac.Location = new System.Drawing.Point(17, 1751);
+            this.gbHD_DoiTac.Name = "gbHD_DoiTac";
+            this.gbHD_DoiTac.Size = new System.Drawing.Size(1162, 328);
+            this.gbHD_DoiTac.TabIndex = 2;
+            this.gbHD_DoiTac.TabStop = false;
+            this.gbHD_DoiTac.Text = "Thêm Đối tác của Hoạt Động";
+            this.gbHD_DoiTac.VisibleChanged += new System.EventHandler(this.gbSinhVien_VisibleChanged);
+            // 
+            // btnDT_Del
+            // 
+            this.btnDT_Del.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnDT_Del.Location = new System.Drawing.Point(938, 278);
+            this.btnDT_Del.Name = "btnDT_Del";
+            this.btnDT_Del.Size = new System.Drawing.Size(133, 44);
+            this.btnDT_Del.TabIndex = 4;
+            this.btnDT_Del.Values.Text = "Xóa GV";
+            this.btnDT_Del.Click += new System.EventHandler(this.btnDelGV_Click);
+            // 
+            // btnDT_Edit
+            // 
+            this.btnDT_Edit.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnDT_Edit.Location = new System.Drawing.Point(748, 278);
+            this.btnDT_Edit.Name = "btnDT_Edit";
+            this.btnDT_Edit.Size = new System.Drawing.Size(133, 44);
+            this.btnDT_Edit.TabIndex = 4;
+            this.btnDT_Edit.Values.Text = "Sửa GV";
+            this.btnDT_Edit.Click += new System.EventHandler(this.btnEditGV_Click);
+            // 
+            // btnDT_Find
+            // 
+            this.btnDT_Find.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnDT_Find.Location = new System.Drawing.Point(412, 33);
+            this.btnDT_Find.Name = "btnDT_Find";
+            this.btnDT_Find.Size = new System.Drawing.Size(112, 44);
+            this.btnDT_Find.TabIndex = 4;
+            this.btnDT_Find.Values.Text = "Tìm";
+            this.btnDT_Find.Click += new System.EventHandler(this.btnDT_Find_Click);
+            // 
+            // btnDT_Clear
+            // 
+            this.btnDT_Clear.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnDT_Clear.Location = new System.Drawing.Point(11, 273);
+            this.btnDT_Clear.Name = "btnDT_Clear";
+            this.btnDT_Clear.Size = new System.Drawing.Size(133, 44);
+            this.btnDT_Clear.TabIndex = 4;
+            this.btnDT_Clear.Values.Text = "Clear";
+            this.btnDT_Clear.Click += new System.EventHandler(this.btnDT_Clear_Click);
+            // 
+            // btnDT_Add
+            // 
+            this.btnDT_Add.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnDT_Add.Location = new System.Drawing.Point(560, 278);
+            this.btnDT_Add.Name = "btnDT_Add";
+            this.btnDT_Add.Size = new System.Drawing.Size(133, 44);
+            this.btnDT_Add.TabIndex = 4;
+            this.btnDT_Add.Values.Text = "Thêm GV";
+            this.btnDT_Add.Click += new System.EventHandler(this.btnAddGV_Click);
+            // 
+            // txtDT_Email
+            // 
+            this.txtDT_Email.Location = new System.Drawing.Point(688, 92);
+            this.txtDT_Email.Name = "txtDT_Email";
+            this.txtDT_Email.Size = new System.Drawing.Size(347, 29);
+            this.txtDT_Email.TabIndex = 1;
+            // 
+            // txtDT_NoiDung
+            // 
+            this.txtDT_NoiDung.Location = new System.Drawing.Point(142, 141);
+            this.txtDT_NoiDung.Multiline = true;
+            this.txtDT_NoiDung.Name = "txtDT_NoiDung";
+            this.txtDT_NoiDung.Size = new System.Drawing.Size(893, 116);
+            this.txtDT_NoiDung.TabIndex = 1;
+            // 
+            // txtDT_Rep
+            // 
+            this.txtDT_Rep.Location = new System.Drawing.Point(142, 89);
+            this.txtDT_Rep.Name = "txtDT_Rep";
+            this.txtDT_Rep.Size = new System.Drawing.Size(435, 29);
+            this.txtDT_Rep.TabIndex = 1;
+            // 
+            // txtDT_Ten
+            // 
+            this.txtDT_Ten.Location = new System.Drawing.Point(142, 39);
+            this.txtDT_Ten.Name = "txtDT_Ten";
+            this.txtDT_Ten.Size = new System.Drawing.Size(259, 29);
+            this.txtDT_Ten.TabIndex = 1;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(607, 39);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(53, 25);
+            this.label17.TabIndex = 0;
+            this.label17.Text = "SĐT";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(607, 92);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(60, 25);
+            this.label18.TabIndex = 0;
+            this.label18.Text = "Email";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(16, 144);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(93, 25);
+            this.label19.TabIndex = 0;
+            this.label19.Text = "Nội Dung";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(16, 92);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(126, 25);
+            this.label20.TabIndex = 0;
+            this.label20.Text = "Tên Đại Diện";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(16, 42);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(120, 25);
+            this.label21.TabIndex = 0;
+            this.label21.Text = "Tên Đối Tác";
+            // 
+            // txtDT_SDT
+            // 
+            this.txtDT_SDT.Location = new System.Drawing.Point(688, 38);
+            this.txtDT_SDT.Name = "txtDT_SDT";
+            this.txtDT_SDT.Size = new System.Drawing.Size(347, 29);
+            this.txtDT_SDT.TabIndex = 1;
+            // 
+            // gbDT_List
+            // 
+            this.gbDT_List.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbDT_List.Controls.Add(this.dgvDoiTac);
+            this.gbDT_List.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.142858F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbDT_List.Location = new System.Drawing.Point(17, 2099);
+            this.gbDT_List.Name = "gbDT_List";
+            this.gbDT_List.Size = new System.Drawing.Size(1154, 361);
+            this.gbDT_List.TabIndex = 2;
+            this.gbDT_List.TabStop = false;
+            this.gbDT_List.Text = "Danh sách GV";
+            // 
+            // dgvDoiTac
+            // 
+            this.dgvDoiTac.AllowUserToAddRows = false;
+            this.dgvDoiTac.AllowUserToDeleteRows = false;
+            this.dgvDoiTac.AllowUserToOrderColumns = true;
+            this.dgvDoiTac.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvDoiTac.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.DT_Ten,
+            this.DT_DaiDien,
+            this.DT_SDT,
+            this.DT_Email,
+            this.DT_NoiDung,
+            this.ID_DB});
+            this.dgvDoiTac.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvDoiTac.Location = new System.Drawing.Point(3, 25);
+            this.dgvDoiTac.Name = "dgvDoiTac";
+            this.dgvDoiTac.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Silver;
+            this.dgvDoiTac.ReadOnly = true;
+            this.dgvDoiTac.RowHeadersWidth = 72;
+            this.dgvDoiTac.RowTemplate.Height = 31;
+            this.dgvDoiTac.Size = new System.Drawing.Size(1148, 333);
+            this.dgvDoiTac.TabIndex = 0;
+            this.dgvDoiTac.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_GV_CellClick);
+            // 
+            // DT_Ten
+            // 
+            this.DT_Ten.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.DT_Ten.Frozen = true;
+            this.DT_Ten.HeaderText = "Tên Đối Tác";
+            this.DT_Ten.MinimumWidth = 9;
+            this.DT_Ten.Name = "DT_Ten";
+            this.DT_Ten.ReadOnly = true;
+            this.DT_Ten.Width = 164;
+            // 
+            // DT_DaiDien
+            // 
+            this.DT_DaiDien.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.DT_DaiDien.HeaderText = "Đại Diện";
+            this.DT_DaiDien.MinimumWidth = 9;
+            this.DT_DaiDien.Name = "DT_DaiDien";
+            this.DT_DaiDien.ReadOnly = true;
+            this.DT_DaiDien.Width = 138;
+            // 
+            // DT_SDT
+            // 
+            this.DT_SDT.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.DT_SDT.HeaderText = "Số Điện Thoại";
+            this.DT_SDT.MinimumWidth = 9;
+            this.DT_SDT.Name = "DT_SDT";
+            this.DT_SDT.ReadOnly = true;
+            this.DT_SDT.Width = 187;
+            // 
+            // DT_Email
+            // 
+            this.DT_Email.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.DT_Email.HeaderText = "Email";
+            this.DT_Email.MinimumWidth = 9;
+            this.DT_Email.Name = "DT_Email";
+            this.DT_Email.ReadOnly = true;
+            this.DT_Email.Width = 108;
+            // 
+            // DT_NoiDung
+            // 
+            this.DT_NoiDung.HeaderText = "Nội Dung";
+            this.DT_NoiDung.MinimumWidth = 9;
+            this.DT_NoiDung.Name = "DT_NoiDung";
+            this.DT_NoiDung.ReadOnly = true;
+            this.DT_NoiDung.Width = 175;
+            // 
+            // ID_DB
+            // 
+            this.ID_DB.HeaderText = "ID_DB";
+            this.ID_DB.MinimumWidth = 9;
+            this.ID_DB.Name = "ID_DB";
+            this.ID_DB.ReadOnly = true;
+            this.ID_DB.Visible = false;
+            this.ID_DB.Width = 175;
             // 
             // frmAddHoatDong
             // 
@@ -878,6 +1154,10 @@
             this.gbHD_GV.ResumeLayout(false);
             this.gbHD_GV.PerformLayout();
             this.panel2.ResumeLayout(false);
+            this.gbHD_DoiTac.ResumeLayout(false);
+            this.gbHD_DoiTac.PerformLayout();
+            this.gbDT_List.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDoiTac)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -956,5 +1236,29 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn GVKhoa;
         private System.Windows.Forms.DataGridViewTextBoxColumn GV_DonVi;
         private System.Windows.Forms.DataGridViewTextBoxColumn GVKHoa_DB;
+        private System.Windows.Forms.GroupBox gbHD_DoiTac;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnDT_Del;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnDT_Edit;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnDT_Find;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnDT_Clear;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnDT_Add;
+        private System.Windows.Forms.TextBox txtDT_Email;
+        private System.Windows.Forms.TextBox txtDT_NoiDung;
+        private System.Windows.Forms.TextBox txtDT_Rep;
+        private System.Windows.Forms.TextBox txtDT_Ten;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.TextBox txtDT_SDT;
+        private System.Windows.Forms.GroupBox gbDT_List;
+        private ComponentFactory.Krypton.Toolkit.KryptonDataGridView dgvDoiTac;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DT_Ten;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DT_DaiDien;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DT_SDT;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DT_Email;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DT_NoiDung;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ID_DB;
     }
 }

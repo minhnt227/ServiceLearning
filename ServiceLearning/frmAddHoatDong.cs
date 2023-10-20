@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Data.Entity;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Collections;
+using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 
 namespace ServiceLearning
 {
@@ -19,12 +20,14 @@ namespace ServiceLearning
         public frmAddHoatDong()
         {
             InitializeComponent();
+            this.Text = "Tạo Mới Hoạt Động";
         }
         public void LoadFormUpdate(string idHD)
         {
             LoadKhoaCB();
             using (Context db = new Context())
             {
+                this.Text = "Sửa Hoạt Động";
                 HOAT_DONG hD = db.HOAT_DONG.Find(idHD);
                 lblHeader.Text = "Sửa Hoạt Động";
                 txtMaHD.Text = hD.MaHD; txtMaHD.ReadOnly = true;
@@ -416,12 +419,12 @@ namespace ServiceLearning
             DataGridViewRow row = dgv_GV.CurrentRow;
             if (row != null) //MaGV,HoTenLot,Ten,GVKhoa,GV_DonVi,GVKHoa_DB
             {
-                txtMaGV.Text = row.Cells["MaGV"].Value.ToString();
-                txtMaGV.ReadOnly = true;
-                txtGVHoTenLot.Text = row.Cells["HoTenLot"].Value.ToString();
-                txtTenGV.Text = row.Cells["Ten"].Value.ToString();
+                txtMaGV.Text        = row.Cells["MaGV"].Value.ToString();
+                txtMaGV.ReadOnly    = true;
+                txtGVHoTenLot.Text  = row.Cells["HoTenLot"].Value.ToString();
+                txtTenGV.Text       = row.Cells["Ten"].Value.ToString();
                 cbGV_Khoa.SelectedValue = row.Cells["GVKHoa_DB"].Value != null ? row.Cells["GVKHoa_DB"].Value : -1;
-                txtDonvi.Text = row.Cells["GV_DonVi"].Value.ToString();
+                txtDonvi.Text       = row.Cells["GV_DonVi"].Value.ToString();
             }
             else
                 return;
@@ -497,5 +500,67 @@ namespace ServiceLearning
             }
         }
 
+        private void btnFindGV_Click(object sender, EventArgs e)
+        {
+            using (Context db = new Context())
+            {
+                GIANG_VIEN gv = db.GIANG_VIEN.Find(txtMaGV.Text);
+                if (gv != null)
+                {
+                    txtMaGV.Text = gv.MaGV;
+                    txtMaGV.ReadOnly = true;
+                    txtGVHoTenLot.Text = gv.HoTenLot;
+                    txtTenGV.Text = gv.Ten;
+                    cbGV_Khoa.SelectedValue = gv.Khoa;
+                    txtDonvi.Text = gv.DonVi;
+                }
+                else
+                    return;
+            }
+        }
+        private DOI_TAC FindDT(string name)
+        {
+            try
+            {
+                DOI_TAC result = new DOI_TAC();
+                using (Context db = new Context())
+                {
+                    DOI_TAC dt = (from k in db.DOI_TAC
+                                  where (k.Hide == false && k.TenDoiTac == name)
+                                  select k).FirstOrDefault();
+                    result = dt;
+                }
+                return result;
+            }
+            catch { return null; }
+        }
+
+        private void btnDT_Find_Click(object sender, EventArgs e)
+        {
+            DOI_TAC dt = FindDT(txtDT_Ten.Text);
+            if (dt != null)
+            {
+                txtDT_Ten.ReadOnly = true;
+                txtDT_Rep.Text = dt.DaiDien;
+                txtDT_SDT.Text = dt.SDT;
+                txtDT_Email.Text = dt.Email;
+            }
+            else 
+            { return; }
+        }
+
+        private void btnDT_Clear_Click(object sender, EventArgs e)
+        {
+            ClearFieldsDT();
+        }
+        public void ClearFieldsDT()
+        {
+            txtDT_Ten.ReadOnly = false;
+            txtDT_Ten.Clear();
+            txtDT_Rep.Clear();
+            txtDT_SDT.Clear();
+            txtDT_Email.Clear();
+            txtDT_NoiDung.Clear();
+        }
     }
 }
