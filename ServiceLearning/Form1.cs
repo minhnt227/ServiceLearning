@@ -150,7 +150,17 @@ namespace ServiceLearning
             {
                 LoadGridGV();
             }
-            
+            else
+                if (Tname == "Sinh Viên")
+            {
+                LoadGridSV();
+            }
+            else
+                if (Tname == "Đối Tác")
+            {
+                LoadGridDT();
+            }
+
         }
         private void LoadGridGV()
         {
@@ -165,6 +175,40 @@ namespace ServiceLearning
                                c = gv.Ten,
                                d = gv.DonVi,
                                e = gv.KHOA1.TenKhoa,
+                           }).ToList();
+                if (_gv == null) return;
+                dataGridView1.DataSource = _gv;
+            }
+        }
+        private void LoadGridSV()
+        {
+            using (Context db = new Context())
+            {
+                var _sv = (from gv in db.SINH_VIEN
+                           where gv.Hide == false
+                           select new
+                           {
+                               MSSV = gv.MSSV,
+                               HoTen = gv.HoTen,
+                               Khoa = gv.KHOA1.TenKhoa,
+                           }).ToList();
+                if (_sv == null) return;
+                dataGridView1.DataSource = _sv;
+            }
+        }
+        private void LoadGridDT()
+        {
+            using (Context db = new Context())
+            {
+                var _gv = (from gv in db.DOI_TAC
+                           where gv.Hide == false
+                           select new
+                           {
+                               ID = gv.ID_DoiTac,
+                               Ten = gv.TenDoiTac,
+                               DaiDien = gv.DaiDien,
+                               SDT = gv.SDT,
+                               Email = gv.Email,
                            }).ToList();
                 if (_gv == null) return;
                 dataGridView1.DataSource = _gv;

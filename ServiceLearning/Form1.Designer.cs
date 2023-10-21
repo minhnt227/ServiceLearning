@@ -41,6 +41,8 @@
             this.btnHDDetail = new ComponentFactory.Krypton.Ribbon.KryptonRibbonGroupButton();
             this.kryptonRibbon1 = new ComponentFactory.Krypton.Ribbon.KryptonRibbon();
             this.tabGV = new ComponentFactory.Krypton.Ribbon.KryptonRibbonTab();
+            this.TabSV = new ComponentFactory.Krypton.Ribbon.KryptonRibbonTab();
+            this.TabDT = new ComponentFactory.Krypton.Ribbon.KryptonRibbonTab();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonRibbon1)).BeginInit();
@@ -123,8 +125,11 @@
             this.kryptonRibbon1.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Silver;
             this.kryptonRibbon1.RibbonTabs.AddRange(new ComponentFactory.Krypton.Ribbon.KryptonRibbonTab[] {
             this.tabHD,
-            this.tabGV});
-            this.kryptonRibbon1.SelectedTab = this.tabHD;
+            this.tabGV,
+            this.TabSV,
+            this.TabDT});
+            this.kryptonRibbon1.SelectedContext = null;
+            this.kryptonRibbon1.SelectedTab = this.TabDT;
             this.kryptonRibbon1.Size = new System.Drawing.Size(1406, 214);
             this.kryptonRibbon1.TabIndex = 2;
             this.kryptonRibbon1.SelectedTabChanged += new System.EventHandler(this.kryptonRibbon1_SelectedTabChanged);
@@ -132,6 +137,14 @@
             // tabGV
             // 
             this.tabGV.Text = "Giảng viên";
+            // 
+            // TabSV
+            // 
+            this.TabSV.Text = "Sinh Viên";
+            // 
+            // TabDT
+            // 
+            this.TabDT.Text = "Đối Tác";
             // 
             // Form1
             // 
@@ -166,6 +179,8 @@
         private ComponentFactory.Krypton.Ribbon.KryptonRibbonGroupTriple kryptonRibbonGroupTriple2;
         private ComponentFactory.Krypton.Ribbon.KryptonRibbonGroupButton btnHDDetail;
         private ComponentFactory.Krypton.Ribbon.KryptonRibbonTab tabGV;
+        private ComponentFactory.Krypton.Ribbon.KryptonRibbonTab TabSV;
+        private ComponentFactory.Krypton.Ribbon.KryptonRibbonTab TabDT;
     }
 }
 
