@@ -38,27 +38,27 @@ namespace ServiceLearning
                                  e = ev.NgayKetThuc,
                                  f = ev.CreatedDate,
                              };
-                dataGridView1.DataSource = _event.ToList();
+                dgvMain.DataSource = _event.ToList();
                 FormatGridViewHD();
             }
         }
         public void FormatGridViewHD()
         {
-            dataGridView1.Columns["d"].DefaultCellStyle.Format = "dd-MM-yyyy";
-            dataGridView1.Columns["e"].DefaultCellStyle.Format = "dd-MM-yyyy";
-            dataGridView1.Columns["f"].DefaultCellStyle.Format = "dd-MM-yyyy";
-            dataGridView1.Columns["a"].HeaderText = "Mã HĐ";
-            dataGridView1.Columns["b"].HeaderText = "Tên Hoạt Động";
-            dataGridView1.Columns["c"].HeaderText = "Loại";
-            dataGridView1.Columns["d"].HeaderText = "Ngày BĐ";
-            dataGridView1.Columns["e"].HeaderText = "Ngày KT";
-            dataGridView1.Columns["f"].HeaderText = "Created Date";
+            dgvMain.Columns["d"].DefaultCellStyle.Format = "dd-MM-yyyy";
+            dgvMain.Columns["e"].DefaultCellStyle.Format = "dd-MM-yyyy";
+            dgvMain.Columns["f"].DefaultCellStyle.Format = "dd-MM-yyyy";
+            dgvMain.Columns["a"].HeaderText = "Mã HĐ";
+            dgvMain.Columns["b"].HeaderText = "Tên Hoạt Động";
+            dgvMain.Columns["c"].HeaderText = "Loại";
+            dgvMain.Columns["d"].HeaderText = "Ngày BĐ";
+            dgvMain.Columns["e"].HeaderText = "Ngày KT";
+            dgvMain.Columns["f"].HeaderText = "Created Date";
             
         }
 
         private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex == dataGridView1.Columns["c"].Index
+            if (e.ColumnIndex == dgvMain.Columns["c"].Index
             && e.Value != null)
             {
                 int i = (int)e.Value;
@@ -89,7 +89,7 @@ namespace ServiceLearning
 
         private void kryptonRibbonGroupButton3_Click(object sender, EventArgs e)
         {
-            string EventID = dataGridView1.CurrentRow.Cells["a"].Value.ToString();
+            string EventID = dgvMain.CurrentRow.Cells["a"].Value.ToString();
             frmAddHoatDong Update = new frmAddHoatDong();
             Update.LoadFormUpdate(EventID);
             Update.ShowDialog();
@@ -99,7 +99,7 @@ namespace ServiceLearning
         {
             using (Context db = new Context())
             {
-                string EventID = dataGridView1.CurrentRow.Cells["a"].Value.ToString();
+                string EventID = dgvMain.CurrentRow.Cells["a"].Value.ToString();
                 HOAT_DONG DelHD =  db.HOAT_DONG.Find(EventID);
                 if (DelHD == null) return;
                 else
@@ -136,11 +136,12 @@ namespace ServiceLearning
         private void kryptonRibbon1_SelectedTabChanged(object sender, EventArgs e)
         {
             KryptonRibbon Rib = sender as KryptonRibbon;
+            if(Rib.SelectedTab == null) return;
             string Tname = Rib.SelectedTab.Text;
             if(e.ToString() == null || Tname == null) return;
              
-            dataGridView1.DataSource = null;
-            dataGridView1.Refresh();
+            dgvMain.DataSource = null;
+            dgvMain.Refresh();
             if (Tname == "Hoạt động")
             {
                 LoadGridHD();
@@ -177,7 +178,7 @@ namespace ServiceLearning
                                e = gv.KHOA1.TenKhoa,
                            }).ToList();
                 if (_gv == null) return;
-                dataGridView1.DataSource = _gv;
+                dgvMain.DataSource = _gv;
             }
         }
         private void LoadGridSV()
@@ -193,7 +194,7 @@ namespace ServiceLearning
                                Khoa = gv.KHOA1.TenKhoa,
                            }).ToList();
                 if (_sv == null) return;
-                dataGridView1.DataSource = _sv;
+                dgvMain.DataSource = _sv;
             }
         }
         private void LoadGridDT()
@@ -211,7 +212,7 @@ namespace ServiceLearning
                                Email = gv.Email,
                            }).ToList();
                 if (_gv == null) return;
-                dataGridView1.DataSource = _gv;
+                dgvMain.DataSource = _gv;
             }
         }
     }
