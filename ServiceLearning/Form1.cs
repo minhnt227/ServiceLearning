@@ -87,7 +87,7 @@ namespace ServiceLearning
             New.ShowDialog();
         }
 
-        private void kryptonRibbonGroupButton3_Click(object sender, EventArgs e)
+        private void btnHD_Edit_Click(object sender, EventArgs e)
         {
             string EventID = dgvMain.CurrentRow.Cells["a"].Value.ToString();
             frmAddHoatDong Update = new frmAddHoatDong();
@@ -97,19 +97,31 @@ namespace ServiceLearning
 
         private void btnHDDel_Click(object sender, EventArgs e)
         {
-            using (Context db = new Context())
+            if (DialogResult.Yes == MessageBox.Show("Do You Want Delete ?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
             {
-                string EventID = dgvMain.CurrentRow.Cells["a"].Value.ToString();
-                HOAT_DONG DelHD =  db.HOAT_DONG.Find(EventID);
-                if (DelHD == null) return;
-                else
+                try
                 {
-                    DelHD.Hide = true;
-                    db.Entry(DelHD).State = System.Data.Entity.EntityState.Modified;
-                    db.SaveChanges();
-                    MessageBox.Show("Xóa Hoạt Động thành công!","Thành công",MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    using (Context db = new Context())
+                    {
+                        string EventID = dgvMain.CurrentRow.Cells["a"].Value.ToString();
+                        HOAT_DONG DelHD = db.HOAT_DONG.Find(EventID);
+                        if (DelHD == null) return;
+                        else
+                        {
+                            DelHD.Hide = true;
+                            db.Entry(DelHD).State = System.Data.Entity.EntityState.Modified;
+                            db.SaveChanges();
+                            MessageBox.Show("Xóa Hoạt Động thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                }
+                catch  (Exception ex)
+                {
+                    MessageBox.Show(ex.Message,"Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
                 }
             }
+            else
+                return;
         }
 
         //private void kryptonRibbonTab1_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -174,8 +186,7 @@ namespace ServiceLearning
                                a = gv.MaGV,
                                b = gv.HoTenLot,
                                c = gv.Ten,
-                               d = gv.DonVi,
-                               e = gv.KHOA1.TenKhoa,
+                               d = gv.KHOA1.TenKhoa,
                            }).ToList();
                 if (_gv == null) return;
                 dgvMain.DataSource = _gv;
@@ -214,6 +225,11 @@ namespace ServiceLearning
                 if (_gv == null) return;
                 dgvMain.DataSource = _gv;
             }
+        }
+
+        private void dgvMain_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            btnHDEdit.PerformClick();
         }
     }
 }

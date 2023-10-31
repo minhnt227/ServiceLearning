@@ -25,24 +25,30 @@ namespace ServiceLearning
         }
         public void LoadFormUpdate(string idHD)
         {
-            LoadKhoaCB();
-            using (Context db = new Context())
+            try
             {
-                this.Text = "Sửa Hoạt Động";
-                HOAT_DONG hD = db.HOAT_DONG.Find(idHD);
-                lblHeader.Text = "Sửa Hoạt Động";
-                txtMaHD.Text = hD.MaHD; txtMaHD.ReadOnly = true;
-                txtTenHD.Text = hD.TenHoatDong;
-                cbLoai.Text = hD.Loai == null? "" : hD.Loai;
-                dtpNgayBD.Value = hD.NgayBatDau == null ? DateTime.Now : (DateTime)hD.NgayBatDau;
-                dtpNgayKT.Value = hD.NgayKetThuc == null ? DateTime.Now : (DateTime)hD.NgayKetThuc;
-                LoadHD_SinhVien(hD);
-                LoadHD_GV(hD);
-                LoadHD_DT(hD);
-                btnAddHD.Text = "Sửa Hoạt Động";
-                isCreate = false;
+                LoadKhoaCB();
+                using (Context db = new Context())
+                {
+                    this.Text = "Sửa Hoạt Động";
+                    HOAT_DONG hD = db.HOAT_DONG.Find(idHD);
+                    lblHeader.Text = "Sửa Hoạt Động";
+                    txtMaHD.Text = hD.MaHD; txtMaHD.ReadOnly = true;
+                    txtTenHD.Text = hD.TenHoatDong;
+                    cbLoai.Text = hD.Loai == null ? "" : hD.Loai;
+                    dtpNgayBD.Value = hD.NgayBatDau == null ? DateTime.Now : (DateTime)hD.NgayBatDau;
+                    dtpNgayKT.Value = hD.NgayKetThuc == null ? DateTime.Now : (DateTime)hD.NgayKetThuc;
+                    LoadHD_SinhVien(hD);
+                    LoadHD_GV(hD);
+                    LoadHD_DT(hD);
+                    btnAddHD.Text = "Sửa Hoạt Động";
+                    isCreate = false;
+                }
             }
-            
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Loading form:\n"+ex.Message,"Error!",MessageBoxButtons.OK,MessageBoxIcon.Error);
+            }
         }
         private void LoadHD_SinhVien(HOAT_DONG hD)
         {
@@ -60,7 +66,7 @@ namespace ServiceLearning
             foreach (HD_GIANGVIEN GV in List)
             {
                 DataGridViewRow row = new DataGridViewRow();
-                dgv_GV.Rows.Add(GV.MaGV, GV.GIANG_VIEN.HoTenLot, GV.GIANG_VIEN.Ten, GV.GIANG_VIEN.KHOA1.TenKhoa, GV.GIANG_VIEN.DonVi, GV.GIANG_VIEN.Khoa);
+                dgv_GV.Rows.Add(GV.MaGV, GV.GIANG_VIEN.HoTenLot, GV.GIANG_VIEN.Ten, GV.GIANG_VIEN.KHOA1.TenKhoa, GV.VaiTro, GV.GIANG_VIEN.Khoa);
             }
         }
         private void LoadHD_DT(HOAT_DONG hD)
@@ -102,25 +108,32 @@ namespace ServiceLearning
 
         private void LoadKhoaCB()
         {
-            using (Context db = new Context())
+            try
             {
-                var khoa = from k in db.KHOAs
-                           where ( k.Hide == false)
-                           select new
-                           {
-                               MaKH = k.MaKhoa,
-                               Ten = k.TenKhoa,
-                           };
-                cbKhoa.DataSource = khoa.ToList();
-                cbKhoa.DisplayMember = "Ten";
-                cbKhoa.ValueMember = "MaKH";
-                cbKhoa.SelectedIndex = -1;
+                using (Context db = new Context())
+                {
+                    var khoa = from k in db.KHOAs
+                               where (k.Hide == false)
+                               select new
+                               {
+                                   MaKH = k.MaKhoa,
+                                   Ten = k.TenKhoa,
+                               };
+                    cbKhoa.DataSource = khoa.ToList();
+                    cbKhoa.DisplayMember = "Ten";
+                    cbKhoa.ValueMember = "MaKH";
+                    cbKhoa.SelectedIndex = -1;
 
-                cbGV_Khoa.DataSource = khoa.ToList();
-                cbGV_Khoa.DisplayMember = "Ten";
-                cbGV_Khoa.ValueMember = "MaKH";
-                cbGV_Khoa.SelectedIndex = -1;
-            }    
+                    cbGV_Khoa.DataSource = khoa.ToList();
+                    cbGV_Khoa.DisplayMember = "Ten";
+                    cbGV_Khoa.ValueMember = "MaKH";
+                    cbGV_Khoa.SelectedIndex = -1;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Loading Khoa:\n"+ex.Message,"Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -240,7 +253,7 @@ namespace ServiceLearning
 
         private void btnAddHD_Click(object sender, EventArgs e)
         {
-            //if (this.isCreate)
+            //Validate Here()
                 SaveHDToDB();
            // else return;
         }
@@ -251,9 +264,8 @@ namespace ServiceLearning
                 using (Context db = new Context())
                 {
                     HOAT_DONG hoatDong = isCreate? new HOAT_DONG() : db.HOAT_DONG.Find(txtMaHD.Text);
-                    hoatDong.MaHD = txtMaHD.Text;
-                    hoatDong.TenHoatDong = txtTenHD.Text;
-                    hoatDong.Loai = cbLoai.Text;
+                    hoatDong.TenHoatDong = txtTenHD.Text.Trim();
+                    hoatDong.Loai = cbLoai.Text.Trim();
                     hoatDong.NgayBatDau = dtpNgayBD.Value;
                     hoatDong.NgayKetThuc = dtpNgayKT.Value;
                     hoatDong.CreatedDate = DateTime.Now;
@@ -271,6 +283,7 @@ namespace ServiceLearning
                     }
                     else
                     {
+                        hoatDong.MaHD = txtMaHD.Text.Trim();
                         db.HOAT_DONG.Add(hoatDong);
                         db.SaveChanges();
                         MessageBox.Show("Tạo mới thành công","Info",MessageBoxButtons.OK,MessageBoxIcon.Information);
@@ -279,7 +292,7 @@ namespace ServiceLearning
                 }    
             } catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                MessageBox.Show(ex.Message);
             }
 
         }
@@ -415,10 +428,10 @@ namespace ServiceLearning
 
         private void btnAddGV_Click(object sender, EventArgs e)
         {
-            //MaGV,HoTenLot,Ten,GVKhoa,GV_DonVi,GVKHoa_DB
+            //MaGV,HoTenLot,Ten,GVKhoa,GV_Role,GVKHoa_DB
             if (ValidateGV())
             { 
-                dgv_GV.Rows.Add(txtMaGV.Text, txtGVHoTenLot.Text, txtTenGV.Text, cbGV_Khoa.Text,txtDonvi.Text , cbGV_Khoa.SelectedValue);
+                dgv_GV.Rows.Add(txtMaGV.Text, txtGVHoTenLot.Text, txtTenGV.Text, cbGV_Khoa.Text,cbGV_Role.Text , cbGV_Khoa.SelectedValue);
                 ClearGVFields();
             }
             else return;
@@ -461,7 +474,7 @@ namespace ServiceLearning
             txtGVHoTenLot.Clear();
             cbGV_Khoa.SelectedIndex = -1;
             txtTenGV.Clear();
-            txtDonvi.Clear();
+            cbGV_Role.SelectedIndex = -1;
             txtMaGV.ReadOnly = false;
         }
 
@@ -482,14 +495,14 @@ namespace ServiceLearning
         private void dgv_GV_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridViewRow row = dgv_GV.CurrentRow;
-            if (row != null) //MaGV,HoTenLot,Ten,GVKhoa,GV_DonVi,GVKHoa_DB
+            if (row != null) //MaGV,HoTenLot,Ten,GVKhoa,GV_Role,GVKHoa_DB
             {
                 txtMaGV.Text        = row.Cells["MaGV"].Value.ToString();
                 txtMaGV.ReadOnly    = true;
                 txtGVHoTenLot.Text  = row.Cells["HoTenLot"].Value.ToString();
                 txtTenGV.Text       = row.Cells["Ten"].Value.ToString();
                 cbGV_Khoa.SelectedValue = row.Cells["GVKHoa_DB"].Value != null ? row.Cells["GVKHoa_DB"].Value : -1;
-                txtDonvi.Text       = row.Cells["GV_DonVi"].Value.ToString();
+                cbGV_Role.Text       = row.Cells["GV_Role"].Value == null ? "" : row.Cells["GV_Role"].Value.ToString();
             }
             else
                 return;
@@ -506,7 +519,7 @@ namespace ServiceLearning
             dgv_GV.CurrentRow.Cells["HoTenLot"].Value = txtGVHoTenLot.Text;
             dgv_GV.CurrentRow.Cells["Ten"].Value = txtTenGV.Text;
             dgv_GV.CurrentRow.Cells["GVKhoa"].Value = cbGV_Khoa.Text;
-            dgv_GV.CurrentRow.Cells["GV_DonVi"].Value = txtDonvi.Text;
+            dgv_GV.CurrentRow.Cells["GV_Role"].Value = cbGV_Role.Text;
             dgv_GV.CurrentRow.Cells["GVKHoa_DB"].Value = cbGV_Khoa.SelectedValue;
             ClearGVFields();
         }
@@ -528,11 +541,13 @@ namespace ServiceLearning
                     HD_GV = new HD_GIANGVIEN();
                     HD_GV.MaHD = txtMaHD.Text;
                     HD_GV.MaGV = dr.Cells["MaGV"].Value.ToString().Trim();
+                    HD_GV.VaiTro = dr.Cells["GV_Role"].Value.ToString().Trim();
                     AddOrUpdateGV(HD_GV, db, dr);
                     hd.HD_GIANGVIEN.Add(HD_GV);
                 }
                 else
                 {
+                    HD_GV.VaiTro = dr.Cells["GV_Role"].Value.ToString().Trim();
                     AddOrUpdateGV(HD_GV, db, dr);
                     db.Entry(HD_GV).State = EntityState.Modified;
                     db.SaveChanges();
@@ -548,7 +563,7 @@ namespace ServiceLearning
                 gv.HoTenLot = dr.Cells["HoTenLot"].Value.ToString().Trim();
                 gv.Ten = dr.Cells["Ten"].Value.ToString().Trim();
                 gv.Khoa = dr.Cells["GVKHoa_DB"].Value.ToString().Trim();
-                gv.DonVi = dr.Cells["GV_DonVi"].Value.ToString().Trim();
+                //gv.DonVi = dr.Cells["GV_Role"].Value.ToString().Trim();
                 gv.Hide = false;
                 db.Entry(gv).State = EntityState.Modified;
                 db.SaveChanges();
@@ -560,7 +575,7 @@ namespace ServiceLearning
                 HD_GV.GIANG_VIEN.HoTenLot = dr.Cells["HoTenLot"].Value.ToString().Trim();
                 HD_GV.GIANG_VIEN.Ten = dr.Cells["Ten"].Value.ToString().Trim();
                 HD_GV.GIANG_VIEN.Khoa = dr.Cells["GVKHoa_DB"].Value.ToString().Trim();
-                HD_GV.GIANG_VIEN.DonVi = dr.Cells["GV_DonVi"].Value.ToString().Trim();
+                //HD_GV.GIANG_VIEN.DonVi = dr.Cells["GV_Role"].Value.ToString().Trim();
                 HD_GV.GIANG_VIEN.Hide = false;
             }
         }
@@ -577,7 +592,7 @@ namespace ServiceLearning
                     txtGVHoTenLot.Text = gv.HoTenLot;
                     txtTenGV.Text = gv.Ten;
                     cbGV_Khoa.SelectedValue = gv.Khoa;
-                    txtDonvi.Text = gv.DonVi;
+                    //cbGV_Role.Text = gv.DonVi;
                 }
                 else
                     return;

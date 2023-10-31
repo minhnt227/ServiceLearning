@@ -19,7 +19,7 @@ namespace ServiceLearning
         public string MaGV { get; set; }
 
         [StringLength(50)]
-        public string Ghichu { get; set; }
+        public string VaiTro { get; set; }
 
         public virtual GIANG_VIEN GIANG_VIEN { get; set; }
 

@@ -28,9 +28,6 @@ namespace ServiceLearning
         [StringLength(10)]
         public string Khoa { get; set; }
 
-        [Column(TypeName = "ntext")]
-        public string DonVi { get; set; }
-
         public bool? Hide { get; set; }
 
         public virtual KHOA KHOA1 { get; set; }

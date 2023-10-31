@@ -28,12 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tabHD = new ComponentFactory.Krypton.Ribbon.KryptonRibbonTab();
-            this.kryptonRibbon1 = new ComponentFactory.Krypton.Ribbon.KryptonRibbon();
-            this.tabGV = new ComponentFactory.Krypton.Ribbon.KryptonRibbonTab();
-            this.TabSV = new ComponentFactory.Krypton.Ribbon.KryptonRibbonTab();
-            this.TabDT = new ComponentFactory.Krypton.Ribbon.KryptonRibbonTab();
-            this.dgvMain = new ComponentFactory.Krypton.Toolkit.KryptonDataGridView();
             this.kryptonRibbonGroup1 = new ComponentFactory.Krypton.Ribbon.KryptonRibbonGroup();
             this.kryptonRibbonGroupTriple1 = new ComponentFactory.Krypton.Ribbon.KryptonRibbonGroupTriple();
             this.btnHDAdd = new ComponentFactory.Krypton.Ribbon.KryptonRibbonGroupButton();
@@ -41,6 +37,11 @@
             this.btnHDEdit = new ComponentFactory.Krypton.Ribbon.KryptonRibbonGroupButton();
             this.kryptonRibbonGroupTriple2 = new ComponentFactory.Krypton.Ribbon.KryptonRibbonGroupTriple();
             this.btnHDDetail = new ComponentFactory.Krypton.Ribbon.KryptonRibbonGroupButton();
+            this.kryptonRibbon1 = new ComponentFactory.Krypton.Ribbon.KryptonRibbon();
+            this.tabGV = new ComponentFactory.Krypton.Ribbon.KryptonRibbonTab();
+            this.TabSV = new ComponentFactory.Krypton.Ribbon.KryptonRibbonTab();
+            this.TabDT = new ComponentFactory.Krypton.Ribbon.KryptonRibbonTab();
+            this.dgvMain = new ComponentFactory.Krypton.Toolkit.KryptonDataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonRibbon1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMain)).BeginInit();
             this.SuspendLayout();
@@ -50,48 +51,6 @@
             this.tabHD.Groups.AddRange(new ComponentFactory.Krypton.Ribbon.KryptonRibbonGroup[] {
             this.kryptonRibbonGroup1});
             this.tabHD.Text = "Hoạt động";
-            // 
-            // kryptonRibbon1
-            // 
-            this.kryptonRibbon1.InDesignHelperMode = true;
-            this.kryptonRibbon1.Name = "kryptonRibbon1";
-            this.kryptonRibbon1.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Silver;
-            this.kryptonRibbon1.RibbonTabs.AddRange(new ComponentFactory.Krypton.Ribbon.KryptonRibbonTab[] {
-            this.tabHD,
-            this.tabGV,
-            this.TabSV,
-            this.TabDT});
-            this.kryptonRibbon1.SelectedTab = this.tabHD;
-            this.kryptonRibbon1.Size = new System.Drawing.Size(1406, 214);
-            this.kryptonRibbon1.TabIndex = 2;
-            this.kryptonRibbon1.SelectedTabChanged += new System.EventHandler(this.kryptonRibbon1_SelectedTabChanged);
-            // 
-            // tabGV
-            // 
-            this.tabGV.Text = "Giảng viên";
-            // 
-            // TabSV
-            // 
-            this.TabSV.Text = "Sinh Viên";
-            // 
-            // TabDT
-            // 
-            this.TabDT.Text = "Đối Tác";
-            // 
-            // dgvMain
-            // 
-            this.dgvMain.AllowUserToAddRows = false;
-            this.dgvMain.AllowUserToOrderColumns = true;
-            this.dgvMain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvMain.Location = new System.Drawing.Point(0, 214);
-            this.dgvMain.Name = "dgvMain";
-            this.dgvMain.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Silver;
-            this.dgvMain.ReadOnly = true;
-            this.dgvMain.RowHeadersWidth = 72;
-            this.dgvMain.RowTemplate.Height = 31;
-            this.dgvMain.Size = new System.Drawing.Size(1406, 525);
-            this.dgvMain.TabIndex = 3;
             // 
             // kryptonRibbonGroup1
             // 
@@ -125,7 +84,7 @@
             this.btnHDEdit.ImageLarge = global::ServiceLearning.Properties.Resources.icons8_edit;
             this.btnHDEdit.ImageSmall = global::ServiceLearning.Properties.Resources.icons8_edit;
             this.btnHDEdit.TextLine1 = "Edit";
-            this.btnHDEdit.Click += new System.EventHandler(this.kryptonRibbonGroupButton3_Click);
+            this.btnHDEdit.Click += new System.EventHandler(this.btnHD_Edit_Click);
             // 
             // kryptonRibbonGroupTriple2
             // 
@@ -138,6 +97,51 @@
             this.btnHDDetail.ImageSmall = global::ServiceLearning.Properties.Resources.icons8_details;
             this.btnHDDetail.TextLine1 = "Detail";
             // 
+            // kryptonRibbon1
+            // 
+            this.kryptonRibbon1.InDesignHelperMode = true;
+            this.kryptonRibbon1.Name = "kryptonRibbon1";
+            this.kryptonRibbon1.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Silver;
+            this.kryptonRibbon1.RibbonAppButton.AppButtonVisible = false;
+            this.kryptonRibbon1.RibbonTabs.AddRange(new ComponentFactory.Krypton.Ribbon.KryptonRibbonTab[] {
+            this.tabHD,
+            this.tabGV,
+            this.TabSV,
+            this.TabDT});
+            this.kryptonRibbon1.SelectedContext = null;
+            this.kryptonRibbon1.SelectedTab = this.tabHD;
+            this.kryptonRibbon1.Size = new System.Drawing.Size(1406, 214);
+            this.kryptonRibbon1.TabIndex = 2;
+            this.kryptonRibbon1.SelectedTabChanged += new System.EventHandler(this.kryptonRibbon1_SelectedTabChanged);
+            // 
+            // tabGV
+            // 
+            this.tabGV.Text = "Giảng viên";
+            // 
+            // TabSV
+            // 
+            this.TabSV.Text = "Sinh Viên";
+            // 
+            // TabDT
+            // 
+            this.TabDT.Text = "Đối Tác";
+            // 
+            // dgvMain
+            // 
+            this.dgvMain.AllowUserToAddRows = false;
+            this.dgvMain.AllowUserToOrderColumns = true;
+            this.dgvMain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvMain.Location = new System.Drawing.Point(0, 214);
+            this.dgvMain.Name = "dgvMain";
+            this.dgvMain.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Silver;
+            this.dgvMain.ReadOnly = true;
+            this.dgvMain.RowHeadersWidth = 72;
+            this.dgvMain.RowTemplate.Height = 31;
+            this.dgvMain.Size = new System.Drawing.Size(1406, 525);
+            this.dgvMain.TabIndex = 3;
+            this.dgvMain.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMain_CellDoubleClick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
@@ -145,6 +149,7 @@
             this.ClientSize = new System.Drawing.Size(1406, 739);
             this.Controls.Add(this.dgvMain);
             this.Controls.Add(this.kryptonRibbon1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Hoạt Động";
