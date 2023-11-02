@@ -38,7 +38,7 @@ namespace ServiceLearning
             txtMail.DataBindings.Add(   new Binding("Text", dataGridView1.DataSource, "c"));
             
         }
-        private void Load()
+        private new void Load()
         {
             var result = from dt 
                          in db.DOI_TAC 

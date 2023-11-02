@@ -18,6 +18,7 @@ namespace ServiceLearning
     {
         public bool isCreate = true;
         public int DT_ID = -1;
+        public int TT_ID = -1;
         public frmAddHoatDong()
         {
             InitializeComponent();
@@ -41,6 +42,7 @@ namespace ServiceLearning
                     LoadHD_SinhVien(hD);
                     LoadHD_GV(hD);
                     LoadHD_DT(hD);
+                    LoadHD_TT(hD);
                     btnAddHD.Text = "Sửa Hoạt Động";
                     isCreate = false;
                 }
@@ -75,6 +77,15 @@ namespace ServiceLearning
             foreach (HD_DOITAC DT in List)
             {
                 dgvDoiTac.Rows.Add(DT.DOI_TAC.TenDoiTac, DT.DOI_TAC.DaiDien, DT.DOI_TAC.SDT, DT.DOI_TAC.Email, DT.NoiDung, DT.DOI_TAC.ID_DoiTac);
+            }
+        }
+
+        private void LoadHD_TT(HOAT_DONG hD)
+        {    //TT_Name, TT_Rep, TT_SDT, TT_Email, TT_Notes, TT_IDDB
+            List<HD_TAITRO> List = hD.HD_TAITRO.ToList();
+            foreach (HD_TAITRO TT in List)
+            {
+                dgvTaiTro.Rows.Add(TT.TAI_TRO.TenTaiTro, TT.TAI_TRO.DaiDien, TT.TAI_TRO.SDT, TT.TAI_TRO.Email, TT.NoiDung, TT.TAI_TRO.ID_TaiTro);
             }
         }
         private void frmAddHoatDong_Load(object sender, EventArgs e)
@@ -181,6 +192,7 @@ namespace ServiceLearning
                 cbKhoa.SelectedValue = row.Cells["DB_Khoa"].Value != null? row.Cells["DB_Khoa"].Value : -1;
                 cbRole.Text = row.Cells["Role"].Value.ToString() != null ? row.Cells["Role"].Value.ToString() : "";
                 txtSVNotes.Text = row.Cells["Notes_SV"].Value.ToString();
+                btnAddSV.Enabled = false;
             }
             else
                 return;
@@ -206,6 +218,7 @@ namespace ServiceLearning
             cbRole.SelectedIndex = -1;
             txtSVNotes.Clear();
             txtMSSV.ReadOnly = false;
+            btnAddSV.Enabled = true;
         }
         public bool ValidateSV()
         {
@@ -263,7 +276,7 @@ namespace ServiceLearning
             {
                 using (Context db = new Context())
                 {
-                    HOAT_DONG hoatDong = isCreate? new HOAT_DONG() : db.HOAT_DONG.Find(txtMaHD.Text);
+                    HOAT_DONG hoatDong = isCreate? new HOAT_DONG() : db.HOAT_DONG.Find(txtMaHD.Text.Trim());
                     hoatDong.TenHoatDong = txtTenHD.Text.Trim();
                     hoatDong.Loai = cbLoai.Text.Trim();
                     hoatDong.NgayBatDau = dtpNgayBD.Value;
@@ -273,6 +286,7 @@ namespace ServiceLearning
                     AddOrUpdateHD_SinhVien(hoatDong,db);
                     AddOrUpdateHD_GV(hoatDong,db);
                     AddOrUpdateHD_DoiTac(hoatDong, db);
+                    AddOrUpdateHD_TaiTro(hoatDong, db);
 
 
                     if (db.HOAT_DONG.Find(hoatDong.MaHD) != null)
@@ -301,11 +315,11 @@ namespace ServiceLearning
         {
                 foreach (DataGridViewRow dr in dgvSinhVien.Rows)
                 {
-                    HD_SINHVIEN SVList = db.HD_SINHVIEN.Find(txtMaHD.Text, dr.Cells["MSSV"].Value.ToString());
+                    HD_SINHVIEN SVList = db.HD_SINHVIEN.Find(txtMaHD.Text.Trim(), dr.Cells["MSSV"].Value.ToString());
                     if (SVList == null)
                     {
                         SVList = new HD_SINHVIEN();
-                        SVList.MaHD = txtMaHD.Text;
+                        SVList.MaHD = txtMaHD.Text.Trim();
                         SVList.MSSV = dr.Cells["MSSV"].Value.ToString().Trim();
                         SVList.VaiTro = dr.Cells["Role"].Value.ToString().Trim();
                         SVList.GhiChu = dr.Cells["Notes_SV"].Value.ToString().Trim();
@@ -352,11 +366,11 @@ namespace ServiceLearning
         {
             foreach (DataGridViewRow dr in dgvDoiTac.Rows)
             {
-                HD_DOITAC hD_DT = db.HD_DOITAC.Find(dr.Cells["ID_DB"].Value, txtMaHD.Text);
+                HD_DOITAC hD_DT = db.HD_DOITAC.Find(dr.Cells["ID_DB"].Value, txtMaHD.Text.Trim());
                 if (hD_DT == null)
                 {
                     hD_DT = new HD_DOITAC();
-                    hD_DT.MaHD = txtMaHD.Text;
+                    hD_DT.MaHD = txtMaHD.Text.Trim();
                     AddOrUpdateDT(hD_DT, db, dr);
                     hD_DT.ID_DoiTac = hD_DT.DOI_TAC.ID_DoiTac;
                     hD_DT.NoiDung = dr.Cells["DT_NoiDung"].Value.ToString().Trim();
@@ -393,6 +407,56 @@ namespace ServiceLearning
                 lst.DOI_TAC.Email = dr.Cells["DT_Email"].Value.ToString().Trim();
                 lst.DOI_TAC.Hide = false;
                 db.DOI_TAC.Add(lst.DOI_TAC);
+                db.SaveChanges();
+            }
+        }
+
+        //TT_Name, TT_Rep, TT_SDT, TT_Email, TT_Notes, TT_IDDB
+        private void AddOrUpdateHD_TaiTro(HOAT_DONG hd, Context db)
+        {
+            foreach (DataGridViewRow dr in dgvTaiTro.Rows)
+            {
+                HD_TAITRO hD_TT = db.HD_TAITRO.Find(dr.Cells["TT_IDDB"].Value, txtMaHD.Text.Trim());
+                if (hD_TT == null)
+                {
+                    hD_TT = new HD_TAITRO();
+                    hD_TT.MaHD = txtMaHD.Text.Trim();
+                    AddOrUpdateTT(hD_TT, db, dr);
+                    hD_TT.ID_TaiTro = hD_TT.TAI_TRO.ID_TaiTro;
+                    hD_TT.NoiDung = dr.Cells["TT_Notes"].Value.ToString().Trim();
+                    hd.HD_TAITRO.Add(hD_TT);
+                }
+                else
+                {
+                    hD_TT.NoiDung = dr.Cells["DT_NoiDung"].Value.ToString().Trim();
+                    AddOrUpdateTT(hD_TT, db, dr);
+                    db.Entry(hD_TT).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
+        }     
+        private void AddOrUpdateTT(HD_TAITRO lst, Context db, DataGridViewRow dr)
+        {
+            if (db.TAI_TRO.Find(dr.Cells["TT_IDDB"].Value) != null)
+            {
+                TAI_TRO tt = db.TAI_TRO.Find(dr.Cells["TT_IDDB"].Value);
+                tt.TenTaiTro = dr.Cells["TT_Name"].Value.ToString().Trim();
+                tt.DaiDien = dr.Cells["TT_Rep"].Value.ToString().Trim();
+                tt.SDT = dr.Cells["TT_SDT"].Value.ToString().Trim();
+                tt.Email = dr.Cells["TT_Email"].Value.ToString().Trim();
+                tt.Hide = false;
+                db.Entry(tt).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            else
+            {
+                lst.TAI_TRO = new TAI_TRO();
+                lst.TAI_TRO.TenTaiTro = dr.Cells["TT_Name"].Value.ToString().Trim();
+                lst.TAI_TRO.DaiDien = dr.Cells["TT_Rep"].Value.ToString().Trim();
+                lst.TAI_TRO.SDT = dr.Cells["TT_SDT"].Value.ToString().Trim();
+                lst.TAI_TRO.Email = dr.Cells["TT_Email"].Value.ToString().Trim();
+                lst.TAI_TRO.Hide = false;
+                db.TAI_TRO.Add(lst.TAI_TRO);
                 db.SaveChanges();
             }
         }
@@ -535,7 +599,7 @@ namespace ServiceLearning
         {
             foreach (DataGridViewRow dr in dgv_GV.Rows)
             {
-                HD_GIANGVIEN HD_GV = db.HD_GIANGVIEN.Find(txtMaHD.Text, dr.Cells["MaGV"].Value.ToString());
+                HD_GIANGVIEN HD_GV = db.HD_GIANGVIEN.Find(txtMaHD.Text.Trim(), dr.Cells["MaGV"].Value.ToString());
                 if (HD_GV == null)
                 {
                     HD_GV = new HD_GIANGVIEN();
@@ -627,7 +691,7 @@ namespace ServiceLearning
                 txtDT_Email.Text = dt.Email;
             }
             else 
-            { return; }
+             return; 
         }
 
         private void btnDT_Clear_Click(object sender, EventArgs e)
@@ -722,5 +786,132 @@ namespace ServiceLearning
                 return;
         }
 
+        private TAI_TRO FindTTByName(string name)
+        {
+            try
+            {
+                TAI_TRO result = new TAI_TRO();
+                using (Context db = new Context())
+                {
+                    TAI_TRO tt = (from s in db.TAI_TRO
+                                  where s.TenTaiTro.Contains(name) && s.Hide == false
+                                  select s).FirstOrDefault();
+                    result = tt;
+                }
+                return result;
+            }
+            catch { return null; }
+        }
+
+        private void btnTT_Find_Click(object sender, EventArgs e)
+        {
+            TAI_TRO tt = FindTTByName(txtTT_Name.Text);
+            if (tt != null)
+            {
+                TT_ID = tt.ID_TaiTro; //Lưu biến tạm để xử lý
+                txtTT_Name.Text = tt.TenTaiTro;
+                txtTT_Name.ReadOnly = true;
+                txtTT_Rep.Text = tt.DaiDien;
+                txtTT_SDT.Text = tt.SDT;
+                txtTT_Email.Text = tt.Email;
+            }
+            else
+              return; 
+        }
+
+        public void ClearFieldsTT()
+        {
+            btnTT_Add.Enabled = true;
+            txtTT_Name.ReadOnly = false;
+            txtTT_Name.Clear();
+            txtTT_Rep.Clear();
+            txtTT_SDT.Clear();
+            txtTT_Email.Clear();
+            txtTT_NoiDung.Clear();
+        }
+
+        private void btnTT_Clear_Click(object sender, EventArgs e)
+        {
+            ClearFieldsTT();
+        }
+
+        private void btnTT_Add_Click(object sender, EventArgs e)
+        {
+            if (ValidateTT())
+            {
+                dgvTaiTro.Rows.Add(txtTT_Name.Text, txtTT_Rep.Text, txtTT_SDT.Text, txtTT_Email.Text, txtTT_NoiDung.Text, TT_ID);
+                TT_ID = -1; //reset DT_ID sau khi sd
+                ClearFieldsTT();
+            }
+            else return;
+        }
+        //TT_Name, TT_Rep, TT_SDT, TT_Email, TT_Notes, TT_IDDB
+        private bool ValidateTT()
+        {
+            if (txtTT_Name.Text.Length == 0)
+            {
+                MessageBox.Show("Tên Nhà Tài Trợ Đang Trống!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            else
+            if (FindDupTT())
+            {
+                MessageBox.Show("Tên Nhà Tài Trợ Đang Bị Trùng!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            else
+                return true;
+        }
+        private bool FindDupTT()
+        {
+            foreach (DataGridViewRow row in dgvTaiTro.Rows)
+            {
+                if (row == null) return false;
+                else
+                {
+                    if (row.Cells["TT_Name"].Value.ToString() == txtTT_Name.Text)
+                    {
+                        return true;
+                    }
+                    else continue;
+                }
+            }
+            return false;
+        }
+
+        private void btnTT_Edit_Click(object sender, EventArgs e)
+        {
+            if (dgvTaiTro.CurrentRow == null) return;
+            dgvTaiTro.CurrentRow.Cells["TT_Name"].Value = txtTT_Name.Text;
+            dgvTaiTro.CurrentRow.Cells["TT_Rep"].Value = txtTT_Rep.Text;
+            dgvTaiTro.CurrentRow.Cells["TT_SDT"].Value = txtTT_SDT.Text;
+            dgvTaiTro.CurrentRow.Cells["TT_Email"].Value = txtTT_Email.Text;
+            dgvTaiTro.CurrentRow.Cells["TT_Notes"].Value = txtTT_NoiDung.Text;
+            ClearFieldsTT();
+        }
+
+        private void btnTT_Del_Click(object sender, EventArgs e)
+        {
+            ClearFieldsTT();
+            if (dgvTaiTro.Rows.Count == 0 || dgvTaiTro.CurrentRow.Index < 0) return;
+            dgvTaiTro.Rows.RemoveAt(dgvTaiTro.CurrentRow.Index);
+        }
+
+        private void dgvTaiTro_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            btnTT_Add.Enabled = false;
+            DataGridViewRow row = dgvTaiTro.CurrentRow;
+            if (row != null) //TT_Name, TT_Rep, TT_SDT, TT_Email, TT_Notes, TT_IDDB
+            {
+                txtTT_Name.Text = row.Cells["TT_Name"].Value.ToString();
+                //txtDT_Ten.ReadOnly  = true;
+                txtTT_Rep.Text = row.Cells["TT_Rep"].Value.ToString();
+                txtTT_SDT.Text = row.Cells["TT_SDT"].Value.ToString();
+                txtTT_Email.Text = row.Cells["TT_Email"].Value.ToString();
+                txtTT_NoiDung.Text = row.Cells["TT_Notes"].Value.ToString();
+            }
+            else
+                return;
+        }
     }
 }

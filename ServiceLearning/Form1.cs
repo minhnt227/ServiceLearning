@@ -97,7 +97,7 @@ namespace ServiceLearning
 
         private void btnHDDel_Click(object sender, EventArgs e)
         {
-            if (DialogResult.Yes == MessageBox.Show("Do You Want Delete ?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
+            if (DialogResult.Yes == MessageBox.Show("Bạn có chắc muốn xóa hoạt động này không?", "Cảnh báo!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
             {
                 try
                 {
