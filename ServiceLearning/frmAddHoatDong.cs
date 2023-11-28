@@ -264,9 +264,28 @@ namespace ServiceLearning
             dgvSinhVien.Rows.RemoveAt(dgvSinhVien.CurrentRow.Index);
         }
 
+        private bool frmValidate()
+        {
+            if (isEmpty())
+                return false;
+            else
+                return true;
+        }
+        private bool isEmpty()
+        {
+            if (txtMaHD.Text.Trim().Length == 0)
+                {
+                    MessageBox.Show("Mã HD đang trống","Cảnh báo",MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return true;
+                } 
+            else return false;
+        }
         private void btnAddHD_Click(object sender, EventArgs e)
         {
             //Validate Here()
+            if (!frmValidate())
+                return;
+            else
                 SaveHDToDB();
            // else return;
         }
@@ -287,7 +306,7 @@ namespace ServiceLearning
                     AddOrUpdateHD_GV(hoatDong,db);
                     AddOrUpdateHD_DoiTac(hoatDong, db);
                     AddOrUpdateHD_TaiTro(hoatDong, db);
-
+                    AddHD_TaiChinh(hoatDong, db);
 
                     if (db.HOAT_DONG.Find(hoatDong.MaHD) != null)
                     {
@@ -461,6 +480,19 @@ namespace ServiceLearning
             }
         }
 
+        private void AddHD_TaiChinh (HOAT_DONG hd, Context db)
+        {
+            TAI_CHINH tc = new TAI_CHINH();
+            tc.MaHD = hd.MaHD;
+            tc.UEF = numUEF.Value;
+            tc.TaiTro = numTaiTro.Value;
+            tc.TieuDe = txtTC_TieuDe.Text;
+            tc.Khac = txtTC_Khac.Text;
+            tc.CreatedDate = DateTime.Now;
+            tc.Hide = false;
+            db.TAI_CHINH.Add(tc);
+            db.SaveChanges();
+        }
         private void btnExit_Click(object sender, EventArgs e)
         {
             this.Close();

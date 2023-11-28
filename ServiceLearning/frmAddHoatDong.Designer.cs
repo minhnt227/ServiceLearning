@@ -104,6 +104,17 @@
             this.btnShowSV = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
+            this.gbTaiChinh = new System.Windows.Forms.GroupBox();
+            this.numUEF = new ComponentFactory.Krypton.Toolkit.KryptonNumericUpDown();
+            this.numTaiTro = new ComponentFactory.Krypton.Toolkit.KryptonNumericUpDown();
+            this.txtTC_Khac = new System.Windows.Forms.TextBox();
+            this.txtTC_TieuDe = new System.Windows.Forms.TextBox();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
             this.gbTTList = new System.Windows.Forms.GroupBox();
             this.dgvTaiTro = new ComponentFactory.Krypton.Toolkit.KryptonDataGridView();
             this.TT_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -154,6 +165,7 @@
             this.panel1.SuspendLayout();
             this.bgHD_TT.SuspendLayout();
             this.gbHD_DoiTac.SuspendLayout();
+            this.gbTaiChinh.SuspendLayout();
             this.gbTTList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTaiTro)).BeginInit();
             this.gbDT_List.SuspendLayout();
@@ -558,6 +570,7 @@
             this.panel1.Controls.Add(this.btnShowSV);
             this.panel1.Controls.Add(this.label14);
             this.panel1.Controls.Add(this.label11);
+            this.panel1.Controls.Add(this.gbTaiChinh);
             this.panel1.Controls.Add(this.gbTTList);
             this.panel1.Controls.Add(this.gbGeneralInfo);
             this.panel1.Controls.Add(this.gbDT_List);
@@ -939,6 +952,149 @@
             this.label11.Size = new System.Drawing.Size(153, 25);
             this.label11.TabIndex = 3;
             this.label11.Text = "Thêm Sinh Viên";
+            // 
+            // gbTaiChinh
+            // 
+            this.gbTaiChinh.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbTaiChinh.Controls.Add(this.numUEF);
+            this.gbTaiChinh.Controls.Add(this.numTaiTro);
+            this.gbTaiChinh.Controls.Add(this.txtTC_Khac);
+            this.gbTaiChinh.Controls.Add(this.txtTC_TieuDe);
+            this.gbTaiChinh.Controls.Add(this.label29);
+            this.gbTaiChinh.Controls.Add(this.label28);
+            this.gbTaiChinh.Controls.Add(this.label30);
+            this.gbTaiChinh.Controls.Add(this.label32);
+            this.gbTaiChinh.Controls.Add(this.label31);
+            this.gbTaiChinh.Controls.Add(this.label27);
+            this.gbTaiChinh.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.142858F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbTaiChinh.Location = new System.Drawing.Point(20, 3320);
+            this.gbTaiChinh.Name = "gbTaiChinh";
+            this.gbTaiChinh.Size = new System.Drawing.Size(1153, 349);
+            this.gbTaiChinh.TabIndex = 2;
+            this.gbTaiChinh.TabStop = false;
+            this.gbTaiChinh.Text = "Thông tin Tài Chính";
+            // 
+            // numUEF
+            // 
+            this.numUEF.AlwaysActive = false;
+            this.numUEF.Increment = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numUEF.Location = new System.Drawing.Point(283, 91);
+            this.numUEF.Maximum = new decimal(new int[] {
+            -727379969,
+            232,
+            0,
+            0});
+            this.numUEF.Name = "numUEF";
+            this.numUEF.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Blue;
+            this.numUEF.Size = new System.Drawing.Size(297, 34);
+            this.numUEF.TabIndex = 3;
+            this.numUEF.ThousandsSeparator = true;
+            this.numUEF.UpDownAlign = System.Windows.Forms.LeftRightAlignment.Left;
+            this.numUEF.UpDownButtonStyle = ComponentFactory.Krypton.Toolkit.ButtonStyle.Form;
+            // 
+            // numTaiTro
+            // 
+            this.numTaiTro.AlwaysActive = false;
+            this.numTaiTro.Increment = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numTaiTro.Location = new System.Drawing.Point(284, 138);
+            this.numTaiTro.Maximum = new decimal(new int[] {
+            -727379969,
+            232,
+            0,
+            0});
+            this.numTaiTro.Name = "numTaiTro";
+            this.numTaiTro.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Blue;
+            this.numTaiTro.Size = new System.Drawing.Size(297, 34);
+            this.numTaiTro.TabIndex = 3;
+            this.numTaiTro.ThousandsSeparator = true;
+            this.numTaiTro.UpDownAlign = System.Windows.Forms.LeftRightAlignment.Left;
+            this.numTaiTro.UpDownButtonStyle = ComponentFactory.Krypton.Toolkit.ButtonStyle.Form;
+            // 
+            // txtTC_Khac
+            // 
+            this.txtTC_Khac.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTC_Khac.Location = new System.Drawing.Point(284, 186);
+            this.txtTC_Khac.Multiline = true;
+            this.txtTC_Khac.Name = "txtTC_Khac";
+            this.txtTC_Khac.Size = new System.Drawing.Size(615, 117);
+            this.txtTC_Khac.TabIndex = 2;
+            // 
+            // txtTC_TieuDe
+            // 
+            this.txtTC_TieuDe.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTC_TieuDe.Location = new System.Drawing.Point(284, 49);
+            this.txtTC_TieuDe.Name = "txtTC_TieuDe";
+            this.txtTC_TieuDe.Size = new System.Drawing.Size(657, 31);
+            this.txtTC_TieuDe.TabIndex = 2;
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label29.Location = new System.Drawing.Point(27, 53);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(89, 25);
+            this.label29.TabIndex = 0;
+            this.label29.Text = "Tiêu đề:";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label28.Location = new System.Drawing.Point(27, 96);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(216, 25);
+            this.label28.TabIndex = 0;
+            this.label28.Text = "Tổng tiền UEF đã chi:";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label30.Location = new System.Drawing.Point(27, 186);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(57, 25);
+            this.label30.TabIndex = 0;
+            this.label30.Text = "Khác";
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label32.Location = new System.Drawing.Point(582, 96);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(53, 25);
+            this.label32.TabIndex = 0;
+            this.label32.Text = "VND";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label31.Location = new System.Drawing.Point(582, 142);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(53, 25);
+            this.label31.TabIndex = 0;
+            this.label31.Text = "VND";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.Location = new System.Drawing.Point(27, 143);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(172, 25);
+            this.label27.TabIndex = 0;
+            this.label27.Text = "Tổng tiền tài trợ:";
             // 
             // gbTTList
             // 
@@ -1429,6 +1585,8 @@
             this.bgHD_TT.PerformLayout();
             this.gbHD_DoiTac.ResumeLayout(false);
             this.gbHD_DoiTac.PerformLayout();
+            this.gbTaiChinh.ResumeLayout(false);
+            this.gbTaiChinh.PerformLayout();
             this.gbTTList.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTaiTro)).EndInit();
             this.gbDT_List.ResumeLayout(false);
@@ -1564,5 +1722,16 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn TT_Email;
         private System.Windows.Forms.DataGridViewTextBoxColumn TT_Notes;
         private System.Windows.Forms.DataGridViewTextBoxColumn TT_IDDB;
+        private System.Windows.Forms.GroupBox gbTaiChinh;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.TextBox txtTC_TieuDe;
+        private System.Windows.Forms.TextBox txtTC_Khac;
+        private System.Windows.Forms.Label label30;
+        private ComponentFactory.Krypton.Toolkit.KryptonNumericUpDown numTaiTro;
+        private ComponentFactory.Krypton.Toolkit.KryptonNumericUpDown numUEF;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.Label label31;
     }
 }
