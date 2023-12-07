@@ -394,6 +394,7 @@ namespace ServiceLearning
                     hD_DT.ID_DoiTac = hD_DT.DOI_TAC.ID_DoiTac;
                     hD_DT.NoiDung = dr.Cells["DT_NoiDung"].Value.ToString().Trim();
                     hd.HD_DOITAC.Add(hD_DT);
+                    db.SaveChanges();
                 }
                 else
                 {
@@ -415,6 +416,7 @@ namespace ServiceLearning
                 dt.Email = dr.Cells["DT_Email"].Value.ToString().Trim();
                 dt.Hide = false;
                 db.Entry(dt).State = EntityState.Modified;
+                lst.DOI_TAC = dt;
                 db.SaveChanges();
             }
             else
@@ -444,10 +446,11 @@ namespace ServiceLearning
                     hD_TT.ID_TaiTro = hD_TT.TAI_TRO.ID_TaiTro;
                     hD_TT.NoiDung = dr.Cells["TT_Notes"].Value.ToString().Trim();
                     hd.HD_TAITRO.Add(hD_TT);
+                    db.SaveChanges();
                 }
                 else
                 {
-                    hD_TT.NoiDung = dr.Cells["DT_NoiDung"].Value.ToString().Trim();
+                    hD_TT.NoiDung = dr.Cells["TT_Notes"].Value.ToString().Trim();
                     AddOrUpdateTT(hD_TT, db, dr);
                     db.Entry(hD_TT).State = EntityState.Modified;
                     db.SaveChanges();
@@ -464,6 +467,7 @@ namespace ServiceLearning
                 tt.SDT = dr.Cells["TT_SDT"].Value.ToString().Trim();
                 tt.Email = dr.Cells["TT_Email"].Value.ToString().Trim();
                 tt.Hide = false;
+                lst.TAI_TRO = tt;
                 db.Entry(tt).State = EntityState.Modified;
                 db.SaveChanges();
             }

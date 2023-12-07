@@ -14,7 +14,6 @@ namespace ServiceLearning
             DANHGIA_DETAILS = new HashSet<DANHGIA_DETAILS>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ID { get; set; }
 
         [Column(TypeName = "ntext")]

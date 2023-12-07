@@ -21,6 +21,7 @@ namespace ServiceLearning
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            this.kryptonRibbon1.SelectedTab = tabHD;
             LoadGridHD();
         }
         public void LoadGridHD()
@@ -172,8 +173,28 @@ namespace ServiceLearning
                 if (Tname == "Đối Tác")
             {
                 LoadGridDT();
+            }else
+                if (Tname == "Hạng Mục ĐG")
+            {
+                LoadGridHM();
             }
 
+        }
+
+        private void LoadGridHM()
+        {
+            using (Context db = new Context())
+            {
+                var _hm = (from hm in db.HANG_MUC
+                           where hm.Hide == false
+                           select new
+                           {
+                               STT = hm.ID,
+                               Ten = hm.TenHangMuc,
+                           }).ToList();
+                if (_hm == null) return;
+                dgvMain.DataSource = _hm;
+            }
         }
         private void LoadGridGV()
         {
@@ -229,7 +250,88 @@ namespace ServiceLearning
 
         private void dgvMain_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            btnHDEdit.PerformClick();
+            string Tname = this.kryptonRibbon1.SelectedTab.Text;
+            if (Tname == "Hoạt động")
+            {
+                btnHDEdit.PerformClick();
+            }
+            else
+                return;
+        }
+
+        private void btnHM_New_Click(object sender, EventArgs e)
+        {
+            frmAddHangMuc frmNewHM = new frmAddHangMuc();
+            frmNewHM.ShowDialog();
+        }
+
+        private void btnHM_Edit_Click(object sender, EventArgs e)
+        {
+            frmAddHangMuc frmEditHM = new frmAddHangMuc();
+            if (dgvMain.CurrentRow == null)
+                return;
+            frmEditHM.ID = (int)dgvMain.CurrentRow.Cells["STT"].Value;
+            frmEditHM.loadUpdateForm();
+            frmEditHM.ShowDialog();
+        }
+
+        private void btnHM_Del_Click(object sender, EventArgs e)
+        {
+            if (DialogResult.Yes == MessageBox.Show("Bạn có chắc muốn xóa hoạt động này không?", "Cảnh báo!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
+            {
+                try
+                {
+                    using (Context db = new Context())
+                    {
+                        string ID = dgvMain.CurrentRow.Cells["STT"].Value.ToString();
+                        HOAT_DONG DelHD = db.HOAT_DONG.Find(ID);
+                        if (DelHD == null) return;
+                        else
+                        {
+                            DelHD.Hide = true;
+                            db.Entry(DelHD).State = System.Data.Entity.EntityState.Modified;
+                            db.SaveChanges();
+                            MessageBox.Show("Xóa Hạng Mục thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+                return;
+        }
+
+        private void btnTK_Khoa_Click(object sender, EventArgs e)
+        {
+            frmTK_Khoa TK_Khoa = new frmTK_Khoa();
+            TK_Khoa.Show();
+        }
+
+        private void btnTK_GV_Click(object sender, EventArgs e)
+        {
+            frmTK_GiangVien TK = new frmTK_GiangVien();
+            TK.Show();
+        }
+
+        private void btnTK_DT_Click(object sender, EventArgs e)
+        {
+            frmTK_DoiTac tK_DoiTac = new frmTK_DoiTac();
+            tK_DoiTac.Show();
+        }
+
+        private void btnTK_TT_Click(object sender, EventArgs e)
+        {
+            frmTK_TaiTro TK = new frmTK_TaiTro();
+            TK.Show();
+        }
+
+        private void btnTK_TC_Click(object sender, EventArgs e)
+        {
+            frmTK_TaiChinh TK = new frmTK_TaiChinh();
+            TK.Show();
         }
     }
 }

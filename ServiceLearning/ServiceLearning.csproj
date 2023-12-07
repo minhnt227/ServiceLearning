@@ -51,11 +51,33 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="EPPlus, Version=7.0.3.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.7.0.3\lib\net462\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus.Interfaces, Version=6.1.1.0, Culture=neutral, PublicKeyToken=a694d7f3b0907a61, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.Interfaces.6.1.1\lib\net462\EPPlus.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus.System.Drawing, Version=6.1.1.0, Culture=neutral, PublicKeyToken=2308d35469c9bac0, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.System.Drawing.6.1.1\lib\net462\EPPlus.System.Drawing.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=1.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IO.RecyclableMemoryStream.1.4.1\lib\net46\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1001\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.5.0.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Threading.Tasks" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -67,9 +89,45 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="frmTK_DoiTac.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTK_DoiTac.Designer.cs">
+      <DependentUpon>frmTK_DoiTac.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmTK_GiangVien.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTK_GiangVien.Designer.cs">
+      <DependentUpon>frmTK_GiangVien.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmTK_Khoa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTK_Khoa.Designer.cs">
+      <DependentUpon>frmTK_Khoa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmTK_TaiChinh.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTK_TaiChinh.Designer.cs">
+      <DependentUpon>frmTK_TaiChinh.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmTK_TaiTro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTK_TaiTro.Designer.cs">
+      <DependentUpon>frmTK_TaiTro.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\DANHGIA_DETAILS.cs" />
     <Compile Include="Models\DANH_GIA.cs" />
     <Compile Include="Models\DOI_TAC.cs" />
+    <Compile Include="frmAddHangMuc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAddHangMuc.Designer.cs">
+      <DependentUpon>frmAddHangMuc.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmAddHoatDong.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -111,8 +169,26 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmAddHangMuc.resx">
+      <DependentUpon>frmAddHangMuc.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmAddHoatDong.resx">
       <DependentUpon>frmAddHoatDong.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTK_DoiTac.resx">
+      <DependentUpon>frmTK_DoiTac.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTK_GiangVien.resx">
+      <DependentUpon>frmTK_GiangVien.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTK_Khoa.resx">
+      <DependentUpon>frmTK_Khoa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTK_TaiChinh.resx">
+      <DependentUpon>frmTK_TaiChinh.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTK_TaiTro.resx">
+      <DependentUpon>frmTK_TaiTro.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frm_DoiTac_Details.resx">
       <DependentUpon>frm_DoiTac_Details.cs</DependentUpon>
