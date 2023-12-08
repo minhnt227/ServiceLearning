@@ -453,6 +453,8 @@ namespace ServiceLearning
 
         private void btnK_edit_Click(object sender, EventArgs e)
         {
+            if (dgvMain.CurrentRow == null)
+                return;
             frmKhoaDetails EditKhoa = new frmKhoaDetails();
             EditKhoa.isCreate = false;
             EditKhoa.LoadFrmEditKhoa(dgvMain.CurrentRow.Cells[0].Value.ToString());
@@ -476,6 +478,54 @@ namespace ServiceLearning
                             db.Entry(DelKH).State = System.Data.Entity.EntityState.Modified;
                             db.SaveChanges();
                             MessageBox.Show("Xóa Đơn Vị thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+                return;
+        }
+
+        private void btnTT_New_Click(object sender, EventArgs e)
+        {
+            frmTTDetails frmTTDetails = new frmTTDetails();
+            frmTTDetails.ShowDialog();
+        }
+
+        private void btnTT_Edit_Click(object sender, EventArgs e)
+        {
+            if (dgvMain.CurrentRow == null)
+                return;
+            frmTTDetails TTEdits = new frmTTDetails();
+            TTEdits.isCreate = false;
+            TTEdits.IDtt = (int)dgvMain.CurrentRow.Cells[0].Value;
+            TTEdits.LoadFrmEditTT();
+            TTEdits.ShowDialog(this);
+        }
+
+        private void btnTT_Delete_Click(object sender, EventArgs e)
+        {
+            if (dgvMain.CurrentRow == null)
+                return;
+            int IDtt = (int)dgvMain.CurrentRow.Cells[0].Value;
+            if (DialogResult.Yes == MessageBox.Show("Bạn có chắc muốn xóa Nhà Tài trợ này không?", "Cảnh báo!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
+            {
+                try
+                {
+                    using (Context db = new Context())
+                    {
+                        TAI_TRO DelTT = db.TAI_TRO.Find(IDtt);
+                        if (DelTT == null) return;
+                        else
+                        {
+                            DelTT.Hide = true;
+                            db.Entry(DelTT).State = System.Data.Entity.EntityState.Modified;
+                            db.SaveChanges();
+                            MessageBox.Show("Xóa Nhà Tài Trợ thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
                 }

@@ -78,6 +78,7 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Threading.Tasks" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -94,6 +95,12 @@
     </Compile>
     <Compile Include="frmKhoaDetails.Designer.cs">
       <DependentUpon>frmKhoaDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmTTDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTTDetails.Designer.cs">
+      <DependentUpon>frmTTDetails.cs</DependentUpon>
     </Compile>
     <Compile Include="frmViewHoatDong.cs">
       <SubType>Form</SubType>
@@ -186,6 +193,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmKhoaDetails.resx">
       <DependentUpon>frmKhoaDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTTDetails.resx">
+      <DependentUpon>frmTTDetails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmViewHoatDong.resx">
       <DependentUpon>frmViewHoatDong.cs</DependentUpon>
