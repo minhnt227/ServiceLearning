@@ -35,6 +35,9 @@ namespace ServiceLearning
                case "Đối Tác": 
                     LoadGridDT();
                     break;
+                case "Tài Trợ": 
+                    LoadGridTT();
+                    break;
                case "Hạng Mục ĐG": 
                     LoadGridHM();
                     break;
@@ -89,6 +92,15 @@ namespace ServiceLearning
             dgvMain.Columns[2].HeaderText = "Số Điện Thoại";
             dgvMain.Columns[3].HeaderText = "Email";
             dgvMain.Columns[4].HeaderText = "Ngày Thành Lập";
+        }
+        public void FormatGridViewTaiTro()
+        {
+            dgvMain.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dgvMain.Columns[0].HeaderText = "ID";
+            dgvMain.Columns[1].HeaderText = "Nhà Tài Trợ";
+            dgvMain.Columns[2].HeaderText = "Đại Diện";
+            dgvMain.Columns[3].HeaderText = "Số điện thoại";
+            dgvMain.Columns[4].HeaderText = "Email";
         }
 
         private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -228,10 +240,35 @@ namespace ServiceLearning
                 {
                     LoadGridKhoa();
                 }
+                else
+                    if (Tname == "Tài Trợ")
+                {
+                    LoadGridTT();
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error while changing tab", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void LoadGridTT()
+        {
+            using (Context db = new Context())
+            {
+                var _tt = (from tt in db.TAI_TRO
+                          where tt.Hide == false
+                          select new
+                          {
+                              ID = tt.ID_TaiTro,
+                              Ten = tt.TenTaiTro,
+                              DaiDien = tt.DaiDien,
+                              SDT = tt.SDT,
+                              Email = tt.Email,
+
+                          }).ToList();
+                if (_tt == null) return;
+                dgvMain.DataSource = _tt;
+                FormatGridViewTaiTro();
             }
         }
         private void LoadGridKhoa()
@@ -420,6 +457,35 @@ namespace ServiceLearning
             EditKhoa.isCreate = false;
             EditKhoa.LoadFrmEditKhoa(dgvMain.CurrentRow.Cells[0].Value.ToString());
             EditKhoa.ShowDialog(this);
+        }
+
+        private void btnK_delete_Click(object sender, EventArgs e)
+        {
+            string MaKhoa = dgvMain.CurrentRow.Cells[0].Value.ToString();
+            if (DialogResult.Yes == MessageBox.Show("Bạn có chắc muốn xóa Đơn vị này không?", "Cảnh báo!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
+            {
+                try
+                {
+                    using (Context db = new Context())
+                    {
+                        KHOA DelKH = db.KHOAs.Find(MaKhoa);
+                        if (DelKH == null) return;
+                        else
+                        {
+                            DelKH.Hide = true;
+                            db.Entry(DelKH).State = System.Data.Entity.EntityState.Modified;
+                            db.SaveChanges();
+                            MessageBox.Show("Xóa Đơn Vị thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+                return;
         }
     }
 }
