@@ -76,8 +76,9 @@ namespace ServiceLearning
             }
         }
 
-        public void loadUpdateForm()
+        public void loadUpdateForm(string name)
         {
+            txtHM_Ten.Text = name;
             this.Text = "Sửa đổi Hạng Mục";
             btnAdd_HM.Text = "Sửa";
         }

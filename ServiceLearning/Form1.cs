@@ -21,8 +21,32 @@ namespace ServiceLearning
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.kryptonRibbon1.SelectedTab = tabHD;
-            LoadGridHD();
+            switch(kryptonRibbon1.SelectedTab.Text)
+            {
+                case "Giảng viên": 
+                    LoadGridGV();
+                    break;
+                case "Hoạt động": 
+                    LoadGridHD();
+                    break;
+               case "Sinh Viên": 
+                    LoadGridSV();
+                    break;
+               case "Đối Tác": 
+                    LoadGridDT();
+                    break;
+               case "Hạng Mục ĐG": 
+                    LoadGridHM();
+                    break;
+               case "Khoa/Viện": 
+                    LoadGridKhoa();
+                    break;
+                default:
+                    kryptonRibbon1.SelectedTab = tabHD;
+                    LoadGridHD();
+                    break;
+
+            }
         }
         public void LoadGridHD()
         {
@@ -55,6 +79,16 @@ namespace ServiceLearning
             dgvMain.Columns["e"].HeaderText = "Ngày KT";
             dgvMain.Columns["f"].HeaderText = "Created Date";
             
+        }
+        
+        public void FormatGridViewKhoa()
+        {
+            dgvMain.Columns[4].DefaultCellStyle.Format = "dd-MM-yyyy";
+            dgvMain.Columns[0].HeaderText = "Mã Đơn Vị";
+            dgvMain.Columns[1].HeaderText = "Tên Đơn Vị";
+            dgvMain.Columns[2].HeaderText = "Số Điện Thoại";
+            dgvMain.Columns[3].HeaderText = "Email";
+            dgvMain.Columns[4].HeaderText = "Ngày Thành Lập";
         }
 
         private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -94,6 +128,14 @@ namespace ServiceLearning
             frmAddHoatDong Update = new frmAddHoatDong();
             Update.LoadFormUpdate(EventID);
             Update.ShowDialog();
+        }
+
+        private void btnHDDetail_Click(object sender, EventArgs e)
+        {
+            string EventID = dgvMain.CurrentRow.Cells["a"].Value.ToString();
+            frmViewHoatDong View = new frmViewHoatDong();
+            View.LoadFormView(EventID);
+            View.Show();
         }
 
         private void btnHDDel_Click(object sender, EventArgs e)
@@ -148,40 +190,71 @@ namespace ServiceLearning
 
         private void kryptonRibbon1_SelectedTabChanged(object sender, EventArgs e)
         {
-            KryptonRibbon Rib = sender as KryptonRibbon;
-            if(Rib.SelectedTab == null) return;
-            string Tname = Rib.SelectedTab.Text;
-            if(e.ToString() == null || Tname == null) return;
-             
-            dgvMain.DataSource = null;
-            dgvMain.Refresh();
-            if (Tname == "Hoạt động")
+            try
             {
-                LoadGridHD();
-            }
-            else
-                if (Tname == "Giảng viên")
-            {
-                LoadGridGV();
-            }
-            else
-                if (Tname == "Sinh Viên")
-            {
-                LoadGridSV();
-            }
-            else
-                if (Tname == "Đối Tác")
-            {
-                LoadGridDT();
-            }else
-                if (Tname == "Hạng Mục ĐG")
-            {
-                LoadGridHM();
-            }
+                KryptonRibbon Rib = sender as KryptonRibbon;
+                if (Rib.SelectedTab == null) return;
+                string Tname = Rib.SelectedTab.Text;
+                if (e.ToString() == null || Tname == null) return;
 
+                dgvMain.DataSource = null;
+                dgvMain.Refresh();
+                if (Tname == "Hoạt động")
+                {
+                    LoadGridHD();
+                }
+                else
+                    if (Tname == "Giảng viên")
+                {
+                    LoadGridGV();
+                }
+                else
+                    if (Tname == "Sinh Viên")
+                {
+                    LoadGridSV();
+                }
+                else
+                    if (Tname == "Đối Tác")
+                {
+                    LoadGridDT();
+                }
+                else
+                    if (Tname == "Hạng Mục ĐG")
+                {
+                    LoadGridHM();
+                }
+                else
+                    if (Tname == "Khoa/Viện")
+                {
+                    LoadGridKhoa();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error while changing tab", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+        private void LoadGridKhoa()
+        {
+            using (Context db = new Context())
+            {
+                var _k = (from k in db.KHOAs
+                           where k.Hide == false
+                           select new
+                           {
+                               MaDonVi = k.MaKhoa,
+                               Ten = k.TenKhoa,
+                               sdt = k.SDT,
+                               email = k.Email,
+                               NgayThanhLap = k.NgayThanhLap,
 
-        private void LoadGridHM()
+                           }).ToList();
+                if (_k == null) return;
+                dgvMain.DataSource = _k;
+                FormatGridViewKhoa();
+            }
+        }
+            private void LoadGridHM()
         {
             using (Context db = new Context())
             {
@@ -271,27 +344,28 @@ namespace ServiceLearning
             if (dgvMain.CurrentRow == null)
                 return;
             frmEditHM.ID = (int)dgvMain.CurrentRow.Cells["STT"].Value;
-            frmEditHM.loadUpdateForm();
+            frmEditHM.loadUpdateForm(dgvMain.CurrentRow.Cells["Ten"].Value.ToString());
             frmEditHM.ShowDialog();
         }
 
         private void btnHM_Del_Click(object sender, EventArgs e)
         {
-            if (DialogResult.Yes == MessageBox.Show("Bạn có chắc muốn xóa hoạt động này không?", "Cảnh báo!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
+            int ID = (int) dgvMain.CurrentRow.Cells["STT"].Value;
+            if (DialogResult.Yes == MessageBox.Show("Bạn có chắc muốn xóa hạng mục này không?", "Cảnh báo!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
             {
                 try
                 {
                     using (Context db = new Context())
                     {
-                        string ID = dgvMain.CurrentRow.Cells["STT"].Value.ToString();
-                        HOAT_DONG DelHD = db.HOAT_DONG.Find(ID);
-                        if (DelHD == null) return;
+                        HANG_MUC DelHM = db.HANG_MUC.Find(ID);
+                        if (DelHM == null) return;
                         else
                         {
-                            DelHD.Hide = true;
-                            db.Entry(DelHD).State = System.Data.Entity.EntityState.Modified;
+                            DelHM.Hide = true;
+                            db.Entry(DelHM).State = System.Data.Entity.EntityState.Modified;
                             db.SaveChanges();
                             MessageBox.Show("Xóa Hạng Mục thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            kryptonRibbon1.SelectedTab = TabDG;
                         }
                     }
                 }
@@ -332,6 +406,20 @@ namespace ServiceLearning
         {
             frmTK_TaiChinh TK = new frmTK_TaiChinh();
             TK.Show();
+        }
+
+        private void btnK_new_Click(object sender, EventArgs e)
+        {
+            frmKhoaDetails AddKhoa = new frmKhoaDetails();
+            AddKhoa.ShowDialog();
+        }
+
+        private void btnK_edit_Click(object sender, EventArgs e)
+        {
+            frmKhoaDetails EditKhoa = new frmKhoaDetails();
+            EditKhoa.isCreate = false;
+            EditKhoa.LoadFrmEditKhoa(dgvMain.CurrentRow.Cells[0].Value.ToString());
+            EditKhoa.ShowDialog(this);
         }
     }
 }

@@ -178,6 +178,7 @@
             // 
             // lblHeader
             // 
+            this.lblHeader.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblHeader.AutoSize = true;
             this.lblHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.85714F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblHeader.ForeColor = System.Drawing.Color.Tomato;
@@ -209,9 +210,10 @@
             // 
             // dtpNgayKT
             // 
+            this.dtpNgayKT.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dtpNgayKT.CustomFormat = "dd-MM-yyyy";
             this.dtpNgayKT.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpNgayKT.Location = new System.Drawing.Point(685, 185);
+            this.dtpNgayKT.Location = new System.Drawing.Point(825, 185);
             this.dtpNgayKT.Name = "dtpNgayKT";
             this.dtpNgayKT.Size = new System.Drawing.Size(183, 29);
             this.dtpNgayKT.TabIndex = 3;
@@ -228,6 +230,7 @@
             // 
             // cbLoai
             // 
+            this.cbLoai.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbLoai.FormattingEnabled = true;
             this.cbLoai.Items.AddRange(new object[] {
             "Sự kiện",
@@ -240,10 +243,12 @@
             // 
             // txtTenHD
             // 
+            this.txtTenHD.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTenHD.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.14286F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTenHD.Location = new System.Drawing.Point(191, 115);
             this.txtTenHD.Name = "txtTenHD";
-            this.txtTenHD.Size = new System.Drawing.Size(965, 37);
+            this.txtTenHD.Size = new System.Drawing.Size(817, 37);
             this.txtTenHD.TabIndex = 1;
             // 
             // txtMaHD
@@ -255,6 +260,7 @@
             // 
             // label3
             // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(617, 61);
             this.label3.Name = "label3";
@@ -264,8 +270,9 @@
             // 
             // label5
             // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(548, 189);
+            this.label5.Location = new System.Drawing.Point(688, 185);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(131, 25);
             this.label5.TabIndex = 0;

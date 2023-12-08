@@ -8,9 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.Entity;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Collections;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
+using System.Xml.Serialization;
+using TextBox = System.Windows.Forms.TextBox;
+using ComponentFactory.Krypton.Toolkit;
 
 namespace ServiceLearning
 {
@@ -34,7 +36,7 @@ namespace ServiceLearning
                     this.Text = "Sửa Hoạt Động";
                     HOAT_DONG hD = db.HOAT_DONG.Find(idHD);
                     lblHeader.Text = "Sửa Hoạt Động";
-                    txtMaHD.Text = hD.MaHD; txtMaHD.ReadOnly = true;
+                    txtMaHD.Text = hD.MaHD.Trim(); txtMaHD.ReadOnly = true;
                     txtTenHD.Text = hD.TenHoatDong;
                     cbLoai.Text = hD.Loai == null ? "" : hD.Loai;
                     dtpNgayBD.Value = hD.NgayBatDau == null ? DateTime.Now : (DateTime)hD.NgayBatDau;
@@ -43,6 +45,7 @@ namespace ServiceLearning
                     LoadHD_GV(hD);
                     LoadHD_DT(hD);
                     LoadHD_TT(hD);
+                    LoadHD_TC(hD);
                     btnAddHD.Text = "Sửa Hoạt Động";
                     isCreate = false;
                 }
@@ -51,6 +54,63 @@ namespace ServiceLearning
             {
                 MessageBox.Show("Error Loading form:\n"+ex.Message,"Error!",MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
+        }
+        public void LoadFormView(string idHD)
+        {
+            try
+            {
+                this.Text = "Thông Tin Hoạt Động";
+                lblHeader.Text = "Thông Tin Hoạt Động";
+                btnAddHD.Visible = false;
+                isCreate = false;
+                using (Context db = new Context())
+                {
+                    HOAT_DONG hD = db.HOAT_DONG.Find(idHD);
+                    txtMaHD.Text = hD.MaHD.Trim();
+                    txtTenHD.Text = hD.TenHoatDong;
+                    cbLoai.Text = hD.Loai == null ? "" : hD.Loai;
+                    dtpNgayBD.Value = hD.NgayBatDau == null ? DateTime.Now : (DateTime)hD.NgayBatDau;
+                    dtpNgayKT.Value = hD.NgayKetThuc == null ? DateTime.Now : (DateTime)hD.NgayKetThuc;
+                    LoadHD_SinhVien(hD);
+                    LoadHD_GV(hD);
+                    LoadHD_DT(hD);
+                    LoadHD_TT(hD);
+                    LoadHD_TC(hD);
+                    foreach (Control g in panel1.Controls)
+                    {
+                        if (g is GroupBox)
+                        {
+                            foreach (Control c in g.Controls)
+                            {
+                                if(c is TextBox)
+                                {
+                                    TextBox a = c as TextBox;
+                                    a.ReadOnly = true;
+                                }
+                                if (c is Button | c is KryptonButton |c is ComboBox | c is DateTimePicker)
+                                {
+                                    c.Enabled = false;  
+                                }
+                                if (c is KryptonNumericUpDown)
+                                {
+                                    KryptonNumericUpDown k = (KryptonNumericUpDown)c;
+                                    k.ReadOnly = true;
+                                    k.Increment = 0;
+                                }    
+                                else
+                                    continue;
+                            }
+                        }
+                        else
+                            continue;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Loading form:\n" + ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
         private void LoadHD_SinhVien(HOAT_DONG hD)
         {
@@ -88,6 +148,18 @@ namespace ServiceLearning
                 dgvTaiTro.Rows.Add(TT.TAI_TRO.TenTaiTro, TT.TAI_TRO.DaiDien, TT.TAI_TRO.SDT, TT.TAI_TRO.Email, TT.NoiDung, TT.TAI_TRO.ID_TaiTro);
             }
         }
+
+        private void LoadHD_TC(HOAT_DONG hD) //Lấy thông tin tài chính mới nhất
+        {
+            TAI_CHINH Latest = hD.TAI_CHINH.OrderByDescending(x => x.CreatedDate).FirstOrDefault();
+            if (Latest == null)
+                return;
+            txtTC_TieuDe.Text = Latest.TieuDe;
+            txtTC_Khac.Text = Latest.Khac;
+            numUEF.Value = Latest.UEF == null? 0 : (decimal)Latest.UEF;
+            numTaiTro.Value = Latest.TaiTro == null ? 0 : (decimal)Latest.UEF;
+        }
+
         private void frmAddHoatDong_Load(object sender, EventArgs e)
         {
             if (!isCreate) return;
